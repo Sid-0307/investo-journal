@@ -1,0 +1,89 @@
+name: Investo journal refresh
+on:
+  schedule:
+    - cron: '0 10 * * 1-5'
+      timezone: Asia/Kolkata
+    - cron: '0 15 * * 1-5'
+      timezone: Asia/Kolkata
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: Report type
+        type: choice
+        options: [opening, closing, correction]
+        required: true
+        default: opening
+      correction_reason:
+        description: Required when slot is correction
+        type: string
+        required: false
+      correction_source_url:
+        description: Required HTTPS source when slot is correction
+        type: string
+        required: false
+      corrects_report:
+        description: Report ID being corrected; defaults to today's opening
+        type: string
+        required: false
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: investo-pages
+  cancel-in-progress: false
+jobs:
+  refresh-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Select report slot
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "INVESTO_SLOT=${{ inputs.slot }}" >> "$GITHUB_ENV"
+          elif [[ "${{ github.event.schedule }}" == "0 15 * * 1-5" ]]; then
+            echo "INVESTO_SLOT=closing" >> "$GITHUB_ENV"
+          else
+            echo "INVESTO_SLOT=opening" >> "$GITHUB_ENV"
+          fi
+      - name: Refresh and save dated report
+        env:
+          INVESTO_PROVIDER_URL: ${{ secrets.INVESTO_PROVIDER_URL }}
+          INVESTO_PROVIDER_TOKEN: ${{ secrets.INVESTO_PROVIDER_TOKEN }}
+          NSE_HOLIDAYS: ${{ vars.NSE_HOLIDAYS }}
+          INVESTO_CORRECTION_REASON: ${{ inputs.correction_reason }}
+          INVESTO_CORRECTION_SOURCE_URL: ${{ inputs.correction_source_url }}
+          INVESTO_CORRECTS_REPORT: ${{ inputs.corrects_report }}
+        run: |
+          if [[ "$INVESTO_SLOT" == "correction" ]]; then npm run correction; else npm run refresh; fi
+      - name: Audit journal and portfolio
+        run: npm run audit
+      - name: Verify date and audit logic
+        run: npm test
+      - name: Save immutable report and audit records
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/reports data/audits
+          if ! git diff --cached --quiet; then
+            git commit -m "journal: ${INVESTO_SLOT} refresh $(TZ=Asia/Kolkata date +%F)"
+            git push origin "HEAD:${{ github.event.repository.default_branch }}"
+          fi
+      - uses: actions/configure-pages@v6
+      - name: Build public site
+        run: npm run build
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v5
