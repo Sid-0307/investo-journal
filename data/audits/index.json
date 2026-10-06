@@ -41,6 +41,27 @@
           "message": "INVESTO_PROVIDER_URL is not configured."
         }
       ]
+    },
+    {
+      "date": "2026-10-05",
+      "status": "WARN",
+      "auditedAt": "2026-10-06T11:24:24.313Z",
+      "reportIds": [
+        "2026-10-05-opening"
+      ],
+      "findings": [
+        {
+          "level": "WARN",
+          "code": "MISSING_CLOSING",
+          "message": "No closing report is recorded for this date."
+        },
+        {
+          "level": "WARN",
+          "code": "DATA_UNAVAILABLE",
+          "reportId": "2026-10-05-opening",
+          "message": "INVESTO_PROVIDER_URL is not configured."
+        }
+      ]
     }
   ],
   "2026-10-06": [
@@ -67,6 +88,35 @@
           "level": "WARN",
           "code": "DATA_UNAVAILABLE",
           "reportId": "2026-10-06-closing",
+          "message": "INVESTO_PROVIDER_URL is not configured."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "status": "FAIL",
+      "auditedAt": "2026-10-06T11:24:24.313Z",
+      "reportIds": [
+        "2026-10-06-closing",
+        "2026-10-06-opening"
+      ],
+      "findings": [
+        {
+          "level": "FAIL",
+          "code": "TIMEZONE_MISMATCH",
+          "reportId": "2026-10-06-closing",
+          "message": "Local timestamp does not match the UTC instant converted to Asia/Kolkata."
+        },
+        {
+          "level": "WARN",
+          "code": "DATA_UNAVAILABLE",
+          "reportId": "2026-10-06-closing",
+          "message": "INVESTO_PROVIDER_URL is not configured."
+        },
+        {
+          "level": "WARN",
+          "code": "DATA_UNAVAILABLE",
+          "reportId": "2026-10-06-opening",
           "message": "INVESTO_PROVIDER_URL is not configured."
         }
       ]
