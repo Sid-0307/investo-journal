@@ -93,5 +93,24 @@
     "actionLog": [],
     "corrections": [],
     "unavailableReason": "INVESTO_PROVIDER_URL is not configured."
+  },
+  {
+    "id": "2026-10-08-opening",
+    "date": "2026-10-08",
+    "type": "opening",
+    "generatedAt": "2026-10-08T11:30:28.940Z",
+    "generatedAtIST": "2026-10-08 17:00:28 IST",
+    "status": "DATA_UNAVAILABLE",
+    "marketSession": "OPEN_SESSION_EXPECTED",
+    "summary": "Data refresh unavailable. Connect a trusted provider to publish sourced market analysis.",
+    "dataAsOf": null,
+    "sources": [],
+    "metrics": {},
+    "sectors": [],
+    "tracking": [],
+    "claims": [],
+    "actionLog": [],
+    "corrections": [],
+    "unavailableReason": "INVESTO_PROVIDER_URL is not configured."
   }
 ]
