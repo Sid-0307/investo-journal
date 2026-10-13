@@ -22,6 +22,10 @@ test('fails when the displayed local clock does not match the UTC instant',()=>{
   assert.equal(a.status,'FAIL');
   assert.ok(a.findings.some(x=>x.code==='TIMEZONE_MISMATCH'));
 });
+test('accepts a one-second display-rounding difference for immutable historical timestamps',()=>{
+  const a=auditRecords([report('opening',{generatedAtIST:'2026-10-01 09:59:59 IST'})],plan)['2026-10-01'];
+  assert.ok(!a.findings.some(x=>x.code==='TIMEZONE_MISMATCH'));
+});
 test('flags unexplained opening/closing action-log contradictions and accepts sourced corrections',()=>{
   const open=report('opening',{actionLog:[{kind:'BUY',amountCents:100}]});
   const close=report('closing',{actionLog:[{kind:'BUY',amountCents:200}]});
