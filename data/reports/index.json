@@ -226,5 +226,84 @@
     "actionLog": [],
     "corrections": [],
     "unavailableReason": "INVESTO_PROVIDER_URL is not configured."
+  },
+  {
+    "id": "2026-10-13-correction-20261013131451",
+    "date": "2026-10-13",
+    "type": "correction",
+    "generatedAt": "2026-10-13T13:14:51.000Z",
+    "generatedAtIST": "2026-10-13 18:44:51 IST",
+    "status": "PUBLISHED",
+    "marketSession": "CLOSED",
+    "summary": "Supplemental close review: Indian equities rebounded on 13 October and IT led, but the move followed improved sentiment after the Finance Minister said she would hear market participants on LTCG/STT; no formal tax proposal was announced. HCLTech’s Q2 FY27 INR revenue rose 11.5% year on year, while constant-currency growth was 2.6%; FY27 constant-currency revenue guidance is 2.5–4.0%. That is constructive, but not a reason to chase a one-day rally. September CPI was provisionally 5.54% and food inflation 7.74%, both higher than August. Plan: add HCLTech and large IT to the research watchlist, and check current valuations before any purchase. A broad index fund can be considered for staged deployment after checking costs and tracking; no trade was executed and the ₹10,000 tranche remains available.",
+    "dataAsOf": "2026-10-13T10:00:00.000Z",
+    "sources": [
+      {
+        "name": "HCLTech Q2 FY27 investor information",
+        "url": "https://www.hcltech.com/investor-relations"
+      },
+      {
+        "name": "MoSPI September 2026 CPI release (PIB)",
+        "url": "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2322244&lang=2&reg=48"
+      },
+      {
+        "name": "Business Standard, 13 October market close",
+        "url": "https://www.business-standard.com/markets/news/stock-market-live-october-13-bse-sensex-today-nifty50-gift-nifty-crude-oil-prices-q2-results-ipo-today-126101300081_1.html"
+      }
+    ],
+    "metrics": {
+      "cpiCombinedPct": 5.54,
+      "foodInflationPct": 7.74,
+      "hcltechInrRevenueGrowthYoyPct": 11.5,
+      "hcltechConstantCurrencyRevenueGrowthYoyPct": 2.6
+    },
+    "sectors": [
+      {
+        "name": "IT",
+        "note": "HCLTech Q2 FY27 INR revenue grew 11.5% YoY; constant-currency growth was 2.6%. FY27 growth guidance remains 2.5–4.0%."
+      },
+      {
+        "name": "Consumer and rate-sensitive",
+        "note": "September CPI rose to 5.54% and food inflation to 7.74%; monitor persistence and household-demand effects."
+      }
+    ],
+    "tracking": [
+      {
+        "name": "HCLTech",
+        "kind": "Equity",
+        "value": "Review valuation and guidance execution before entry"
+      },
+      {
+        "name": "Nifty 50 ETF",
+        "kind": "ETF",
+        "value": "Broad-market candidate; check costs and tracking before staged entry"
+      }
+    ],
+    "claims": [
+      {
+        "id": "hcltech-q2-fy27",
+        "value": "INR revenue grew 11.5% YoY; constant-currency revenue grew 2.6% YoY; FY27 constant-currency revenue guidance is 2.5–4.0%.",
+        "sourceUrl": "https://www.hcltech.com/investor-relations"
+      },
+      {
+        "id": "india-cpi-september-2026",
+        "value": "Provisional combined CPI inflation was 5.54% and food inflation was 7.74% in September 2026.",
+        "sourceUrl": "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2322244&lang=2&reg=48"
+      },
+      {
+        "id": "market-close-2026-10-13",
+        "value": "Indian benchmark indices rebounded on 13 October; IT was the leading sector, with sentiment influenced by comments about hearing market views on LTCG and STT.",
+        "sourceUrl": "https://www.business-standard.com/markets/news/stock-market-live-october-13-bse-sensex-today-nifty50-gift-nifty-crude-oil-prices-q2-results-ipo-today-126101300081_1.html"
+      }
+    ],
+    "actionLog": [],
+    "corrections": [
+      {
+        "reason": "Supplemental assistant research after the scheduled provider-backed closing report was recorded as DATA_UNAVAILABLE; the original immutable report is retained.",
+        "sourceUrl": "https://www.hcltech.com/investor-relations",
+        "corrects": "2026-10-13-closing"
+      }
+    ],
+    "unavailableReason": ""
   }
 ]
