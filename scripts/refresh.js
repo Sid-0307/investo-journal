@@ -1,4 +1,4 @@
-import { readJson, writeJson, isoNow, localDate, localStamp, isMarketDay } from './lib.js';
+import { readJson, writeJson, localDate, localStamp, isMarketDay } from './lib.js';
 
 const slot = process.env.INVESTO_SLOT === 'closing' ? 'closing' : 'opening';
 const now = new Date();
@@ -11,7 +11,7 @@ if (reports.some(r => r.id === key)) {
 }
 
 const report = {
-  id: key, date, type: slot, generatedAt: isoNow(), generatedAtIST: localStamp(now),
+  id: key, date, type: slot, generatedAt: now.toISOString(), generatedAtIST: localStamp(now),
   status: 'DATA_UNAVAILABLE', marketSession: isMarketDay(now) ? 'OPEN_SESSION_EXPECTED' : 'MARKET_CLOSED',
   summary: '', dataAsOf: null, sources: [], metrics: {}, sectors: [], tracking: [], claims: [], actionLog: [], corrections: [],
   unavailableReason: ''
