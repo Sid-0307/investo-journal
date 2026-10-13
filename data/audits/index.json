@@ -1274,6 +1274,30 @@
           "message": "INVESTO_PROVIDER_URL is not configured."
         }
       ]
+    },
+    {
+      "date": "2026-10-13",
+      "status": "WARN",
+      "auditedAt": "2026-10-13T13:14:51.000Z",
+      "reportIds": [
+        "2026-10-13-closing",
+        "2026-10-13-opening",
+        "2026-10-13-correction-20261013131451"
+      ],
+      "findings": [
+        {
+          "level": "WARN",
+          "code": "DATA_UNAVAILABLE",
+          "reportId": "2026-10-13-closing",
+          "message": "INVESTO_PROVIDER_URL is not configured."
+        },
+        {
+          "level": "WARN",
+          "code": "DATA_UNAVAILABLE",
+          "reportId": "2026-10-13-opening",
+          "message": "INVESTO_PROVIDER_URL is not configured."
+        }
+      ]
     }
   ]
 }
