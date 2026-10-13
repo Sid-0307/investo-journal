@@ -27,7 +27,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: investo-pages
+  group: investo-pages-publish-v2
   cancel-in-progress: false
 jobs:
   refresh-and-publish:
