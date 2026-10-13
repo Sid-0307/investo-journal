@@ -2,11 +2,6 @@ name: Investo journal refresh
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: '0 10 * * 1-5'
-      timezone: Asia/Kolkata
-    - cron: '0 15 * * 1-5'
-      timezone: Asia/Kolkata
   workflow_dispatch:
     inputs:
       slot:
@@ -52,12 +47,8 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "push" ]]; then
             echo "INVESTO_SLOT=deploy" >> "$GITHUB_ENV"
-          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "INVESTO_SLOT=${{ inputs.slot }}" >> "$GITHUB_ENV"
-          elif [[ "${{ github.event.schedule }}" == "0 15 * * 1-5" ]]; then
-            echo "INVESTO_SLOT=closing" >> "$GITHUB_ENV"
           else
-            echo "INVESTO_SLOT=opening" >> "$GITHUB_ENV"
+            echo "INVESTO_SLOT=${{ inputs.slot }}" >> "$GITHUB_ENV"
           fi
       - name: Refresh and save dated report
         if: env.INVESTO_SLOT != 'deploy'
