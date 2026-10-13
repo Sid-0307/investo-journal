@@ -3,7 +3,7 @@ const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','
 const fmtDate = d => new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',day:'2-digit',month:'short',year:'numeric'}).format(new Date(`${d}T12:00:00+05:30`));
 const fmtTime = d => new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date(d));
 async function load(){
-  const [reports,audits,plan]=await Promise.all(['data/reports/index.json','data/audits/index.json','data/portfolio.json'].map(p=>fetch(p).then(r=>r.json())));
+  const [reports,audits,plan]=await Promise.all(['data/reports/index.json','data/audits/index.json','data/portfolio.json'].map(p=>fetch(p,{cache:'no-store'}).then(r=>r.json())));
   const latest=[...reports].reverse().find(r=>r.status==='PUBLISHED');
   const latestReport=reports.at(-1); const audit=latestReport?audits[latestReport.date]:null;
   const d=new Date();document.querySelector('#journal-date').textContent=new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',weekday:'short',day:'2-digit',month:'short',year:'numeric'}).format(d);
