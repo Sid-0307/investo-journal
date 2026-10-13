@@ -1,5 +1,7 @@
 name: Investo journal refresh
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: '0 10 * * 1-5'
       timezone: Asia/Kolkata
@@ -48,7 +50,9 @@ jobs:
       - name: Select report slot
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "INVESTO_SLOT=deploy" >> "$GITHUB_ENV"
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "INVESTO_SLOT=${{ inputs.slot }}" >> "$GITHUB_ENV"
           elif [[ "${{ github.event.schedule }}" == "0 15 * * 1-5" ]]; then
             echo "INVESTO_SLOT=closing" >> "$GITHUB_ENV"
@@ -56,6 +60,7 @@ jobs:
             echo "INVESTO_SLOT=opening" >> "$GITHUB_ENV"
           fi
       - name: Refresh and save dated report
+        if: env.INVESTO_SLOT != 'deploy'
         env:
           INVESTO_PROVIDER_URL: ${{ secrets.INVESTO_PROVIDER_URL }}
           INVESTO_PROVIDER_TOKEN: ${{ secrets.INVESTO_PROVIDER_TOKEN }}
@@ -66,10 +71,13 @@ jobs:
         run: |
           if [[ "$INVESTO_SLOT" == "correction" ]]; then npm run correction; else npm run refresh; fi
       - name: Audit journal and portfolio
+        if: env.INVESTO_SLOT != 'deploy'
         run: npm run audit
       - name: Verify date and audit logic
+        if: env.INVESTO_SLOT != 'deploy'
         run: npm test
       - name: Save immutable report and audit records
+        if: env.INVESTO_SLOT != 'deploy'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
