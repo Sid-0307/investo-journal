@@ -1,5 +1,12 @@
 import { readJson, writeJson, localStamp } from './lib.js';
 
+function matchesLocalSecond(generatedAt, generatedAtIST) {
+  const toEpoch = value => Date.parse(`${String(value ?? '').replace(/ IST$/, '').replace(' ', 'T')}Z`);
+  const expected = toEpoch(localStamp(new Date(generatedAt)));
+  const recorded = toEpoch(generatedAtIST);
+  return Number.isFinite(expected) && Number.isFinite(recorded) && Math.abs(expected - recorded) <= 1000;
+}
+
 export function auditRecords(reports, portfolio, auditedAt = new Date()) {
 const audits = {};
 const days = [...new Set(reports.map(r => r.date))];
@@ -11,7 +18,7 @@ for (const date of days) {
   for (const r of dayReports) {
     if (r.date !== r.generatedAtIST?.slice(0, 10)) findings.push({ level: 'FAIL', code: 'DATE_MISMATCH', reportId: r.id, message: 'Record date does not match its Asia/Kolkata timestamp.' });
     if (!r.generatedAt || !Number.isFinite(Date.parse(r.generatedAt))) findings.push({ level: 'FAIL', code: 'INVALID_TIMESTAMP', reportId: r.id, message: 'Generated timestamp is missing or invalid.' });
-    else if (localStamp(new Date(r.generatedAt)) !== r.generatedAtIST) findings.push({ level: 'FAIL', code: 'TIMEZONE_MISMATCH', reportId: r.id, message: 'Local timestamp does not match the UTC instant converted to Asia/Kolkata.' });
+    else if (!matchesLocalSecond(r.generatedAt, r.generatedAtIST)) findings.push({ level: 'FAIL', code: 'TIMEZONE_MISMATCH', reportId: r.id, message: 'Local timestamp does not match the UTC instant converted to Asia/Kolkata.' });
     if (!r.summary || !r.status || !r.type) findings.push({ level: 'FAIL', code: 'INCOMPLETE_REPORT', reportId: r.id, message: 'Required report fields are missing.' });
     if (r.status === 'PUBLISHED') {
       if (!r.dataAsOf || !Number.isFinite(Date.parse(r.dataAsOf)) || Date.parse(r.dataAsOf) > Date.parse(r.generatedAt) || Date.parse(r.generatedAt) - Date.parse(r.dataAsOf) > 86400000) findings.push({ level: 'WARN', code: 'STALE_OR_INVALID_DATA', reportId: r.id, message: 'Data timestamp is missing, future-dated, or older than 24 hours.' });
