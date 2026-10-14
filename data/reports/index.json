@@ -305,5 +305,86 @@
       }
     ],
     "unavailableReason": ""
+  },
+  {
+    "id": "2026-10-14-opening-20261014061621",
+    "date": "2026-10-14",
+    "type": "opening",
+    "generatedAt": "2026-10-14T06:16:21.000Z",
+    "generatedAtIST": "2026-10-14 11:46:21 IST",
+    "status": "PUBLISHED",
+    "marketSession": "OPEN_SESSION_EXPECTED",
+    "summary": "Morning research snapshot (quotes timestamped 09:47–10:02 IST, not live at publication): benchmarks were mixed after Tuesday’s sharp rebound—Nifty 50 was 22,702.75 (-0.08%) at 10:02, while Sensex was 73,174.67 (+0.19%) at 09:47. Nifty IT led sectors at +1.32%; Nifty Pharma lagged at -1.18% in the same 10:02 snapshot. Rising crude near $107/barrel and continued foreign outflows remain risks, so Tuesday’s rally is not confirmation of a broad trend reversal. Research stance: keep the ₹10,000 monthly tranche available and build the first entry in a diversified Nifty 50 ETF in two smaller steps only if the user’s risk horizon is long-term; do not chase individual IT names after their sharp rally. No trade was executed.",
+    "dataAsOf": "2026-10-14T04:32:00.000Z",
+    "sources": [
+      {
+        "name": "Downstox India Markets — index and sector snapshot (14 Oct, 09:47–10:02 IST)",
+        "url": "https://downstox.com/india-markets"
+      },
+      {
+        "name": "India Today — market opening, crude and foreign-flow context (14 Oct, 09:37 IST)",
+        "url": "https://www.indiatoday.in/amp/business/market/story/market-opening-sensex-nifty-turn-flat-crude-oil-fii-outflows-weigh-3016860-2026-10-14"
+      },
+      {
+        "name": "Financial Express — opening cues, crude and prior-session sector context (14 Oct)",
+        "url": "https://www.financialexpress.com/market/share-market-today-live-stock-market-sensex-nifty-gold-silver-rate-14th-october-2026-4360714/"
+      }
+    ],
+    "metrics": {
+      "nifty50": {
+        "value": 22702.75,
+        "changePct": -0.08,
+        "asOf": "2026-10-14T04:32:00.000Z"
+      },
+      "sensex": {
+        "value": 73174.67,
+        "changePct": 0.19,
+        "asOf": "2026-10-14T04:17:00.000Z"
+      },
+      "niftyITChangePct": 1.32,
+      "niftyPharmaChangePct": -1.18,
+      "portfolioDeployedCents": 0
+    },
+    "sectors": [
+      {
+        "name": "IT",
+        "note": "Leading the early snapshot at +1.32%; Tuesday’s strong rally raises entry risk. Prefer earnings and valuation checks over chasing the move."
+      },
+      {
+        "name": "Pharma",
+        "note": "Lagging the early snapshot at -1.18%; a one-session decline alone is not a buy signal."
+      },
+      {
+        "name": "Broad market",
+        "note": "Mixed index readings after a sharp rebound; rising oil and foreign selling make staged entries more prudent than an all-at-once deployment."
+      }
+    ],
+    "tracking": [
+      {
+        "name": "Nifty 50 ETF",
+        "kind": "ETF",
+        "value": "Candidate for staged long-term entry; verify expense ratio, tracking difference and liquidity first"
+      },
+      {
+        "name": "HCLTech / large IT",
+        "kind": "Equity",
+        "value": "Watch earnings and valuation after Tuesday's sharp rally; no chase entry"
+      }
+    ],
+    "claims": [
+      {
+        "id": "india-market-early-2026-10-14",
+        "value": "At 10:02 IST Nifty 50 was 22,702.75 (-0.08%); at 09:47 IST Sensex was 73,174.67 (+0.19%); Nifty IT +1.32% and Nifty Pharma -1.18% in the 10:02 snapshot.",
+        "sourceUrl": "https://downstox.com/india-markets"
+      },
+      {
+        "id": "india-market-risk-2026-10-14",
+        "value": "Rising crude oil and foreign investor outflows weighed on sentiment in early trade.",
+        "sourceUrl": "https://www.indiatoday.in/amp/business/market/story/market-opening-sensex-nifty-turn-flat-crude-oil-fii-outflows-weigh-3016860-2026-10-14"
+      }
+    ],
+    "actionLog": [],
+    "corrections": [],
+    "unavailableReason": ""
   }
 ]
