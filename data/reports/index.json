@@ -457,5 +457,79 @@
       }
     ],
     "unavailableReason": ""
+  },
+  {
+    "id": "2026-10-14-closing-20261014093127",
+    "date": "2026-10-14",
+    "type": "closing",
+    "generatedAt": "2026-10-14T09:31:27Z",
+    "generatedAtIST": "2026-10-14 15:01:27 IST",
+    "status": "PUBLISHED",
+    "marketSession": "OPEN_SESSION_EXPECTED",
+    "summary": "3 PM review (not the 3:30 PM exchange close). The latest same-day market coverage available for this review was timestamped 13:30 IST: it described afternoon benchmark weakness and pressure among financials and pharma. Earlier coverage cited rising crude and foreign outflows as headwinds, while IT had been comparatively firm in the morning. This is delayed qualitative reporting, not a live 3 PM market snapshot or official close. For the ₹1,00,000 plan and ₹10,000 monthly tranche, the opinion is to avoid chasing IT after its recent strength; keep any first diversified-market entry staged and check ETF costs, tracking and liquidity first. Energy-price and foreign-flow risks remain material. No trade was executed.",
+    "dataAsOf": "2026-10-14T08:00:00.000Z",
+    "sources": [
+      {
+        "name": "Financial Express — 14 October market live coverage (latest cited update 13:30 IST)",
+        "url": "https://www.financialexpress.com/market/share-market-today-live-stock-market-sensex-nifty-gold-silver-rate-14th-october-2026-4360714/"
+      },
+      {
+        "name": "India Today — 14 October market opening, crude and foreign-flow context (09:37 IST)",
+        "url": "https://www.indiatoday.in/amp/business/market/story/market-opening-sensex-nifty-turn-flat-crude-oil-fii-outflows-weigh-3016860-2026-10-14"
+      },
+      {
+        "name": "NSE Data Sharing & Usage Policy",
+        "url": "https://www.nseindia.com/static/market-data/nse-data-policy"
+      }
+    ],
+    "metrics": {
+      "portfolioDeployedCents": 0
+    },
+    "sectors": [
+      {
+        "name": "Broad market",
+        "note": "Latest cited afternoon coverage described benchmark weakness; the observation is from 13:30 IST, not the 15:00 review timestamp."
+      },
+      {
+        "name": "Financials and pharma",
+        "note": "Financials and pharma were described as under pressure in the latest cited afternoon coverage."
+      },
+      {
+        "name": "IT",
+        "note": "Earlier coverage described IT as comparatively firm; avoid treating that relative strength as a standalone entry signal."
+      }
+    ],
+    "tracking": [
+      {
+        "name": "Nifty 50 ETF",
+        "kind": "ETF",
+        "value": "Long-term candidate for staged review; verify expense ratio, tracking difference and liquidity before any transaction."
+      },
+      {
+        "name": "Large IT",
+        "kind": "Equity",
+        "value": "Watch results and valuation; no chase entry based on relative strength alone."
+      }
+    ],
+    "claims": [
+      {
+        "id": "afternoon-market-tone-2026-10-14",
+        "value": "Financial Express coverage updated at 13:30 IST described afternoon benchmark weakness and pressure in financials and pharma; it does not establish the 15:00 market state or official close.",
+        "sourceUrl": "https://www.financialexpress.com/market/share-market-today-live-stock-market-sensex-nifty-gold-silver-rate-14th-october-2026-4360714/"
+      },
+      {
+        "id": "morning-risk-context-2026-10-14",
+        "value": "India Today reported rising crude and foreign outflows as early-session headwinds and described IT shares as comparatively firm.",
+        "sourceUrl": "https://www.indiatoday.in/amp/business/market/story/market-opening-sensex-nifty-turn-flat-crude-oil-fii-outflows-weigh-3016860-2026-10-14"
+      },
+      {
+        "id": "market-data-redistribution-caution-2026-10-14",
+        "value": "NSE's data policy restricts redistribution of market data except as allowed by the applicable agreement; this report therefore uses linked qualitative coverage without reproducing quote figures.",
+        "sourceUrl": "https://www.nseindia.com/static/market-data/nse-data-policy"
+      }
+    ],
+    "actionLog": [],
+    "corrections": [],
+    "unavailableReason": ""
   }
 ]
