@@ -1331,6 +1331,24 @@
           "message": "No closing report is recorded yet for this date."
         }
       ]
+    },
+    {
+      "date": "2026-10-14",
+      "status": "WARN",
+      "auditedAt": "2026-10-14T09:31:38Z",
+      "reportIds": [
+        "2026-10-14-opening-20261014061621",
+        "2026-10-14-correction-20261014062020",
+        "2026-10-14-closing-20261014093127"
+      ],
+      "findings": [
+        {
+          "level": "WARN",
+          "code": "STALE_MARKET_SNAPSHOT",
+          "reportId": "2026-10-14-closing-20261014093127",
+          "message": "Latest cited market narrative is timestamped 13:30 IST, before the 15:00 review; this is not a live quote snapshot or official close."
+        }
+      ]
     }
   ]
 }
