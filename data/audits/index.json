@@ -1315,6 +1315,22 @@
           "message": "No closing report is recorded yet for this date."
         }
       ]
+    },
+    {
+      "date": "2026-10-14",
+      "status": "WARN",
+      "auditedAt": "2026-10-14T06:20:20.000Z",
+      "reportIds": [
+        "2026-10-14-opening-20261014061621",
+        "2026-10-14-correction-20261014062020"
+      ],
+      "findings": [
+        {
+          "level": "WARN",
+          "code": "MISSING_CLOSING",
+          "message": "No closing report is recorded yet for this date."
+        }
+      ]
     }
   ]
 }
