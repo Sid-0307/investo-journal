@@ -386,5 +386,76 @@
     "actionLog": [],
     "corrections": [],
     "unavailableReason": ""
+  },
+  {
+    "id": "2026-10-14-correction-20261014062020",
+    "date": "2026-10-14",
+    "type": "correction",
+    "generatedAt": "2026-10-14T06:20:20.000Z",
+    "generatedAtIST": "2026-10-14 11:50:20 IST",
+    "status": "PUBLISHED",
+    "marketSession": "OPEN_SESSION_EXPECTED",
+    "summary": "Correction to the morning entry: its exact index and sector quote figures are withdrawn because the source terms do not grant republication rights and display permission was not confirmed. Please disregard those figures. For context without reproducing the quotes, India Today reported that benchmarks gave up early gains and traded marginally lower amid rising crude and foreign outflows, while IT shares remained firm. I will link to source coverage rather than republish quote values unless display rights are confirmed. No trade was executed and portfolio records are unchanged.",
+    "dataAsOf": "2026-10-14T04:07:00.000Z",
+    "sources": [
+      {
+        "name": "Downstox Terms & Conditions — reproduction restriction",
+        "url": "https://downstox.com/terms"
+      },
+      {
+        "name": "NSE Data Sharing & Usage Policy",
+        "url": "https://www.nseindia.com/static/market-data/nse-data-policy"
+      },
+      {
+        "name": "India Today — 14 October market opening coverage (09:37 IST)",
+        "url": "https://www.indiatoday.in/amp/business/market/story/market-opening-sensex-nifty-turn-flat-crude-oil-fii-outflows-weigh-3016860-2026-10-14"
+      }
+    ],
+    "metrics": {
+      "portfolioDeployedCents": 0
+    },
+    "sectors": [
+      {
+        "name": "Broad market",
+        "note": "The cited news report described benchmarks giving up early gains amid crude and foreign-flow concerns."
+      },
+      {
+        "name": "IT",
+        "note": "The cited news report described IT shares as comparatively firm in early trade; recheck sourced coverage for developments."
+      }
+    ],
+    "tracking": [
+      {
+        "name": "Nifty 50 ETF",
+        "kind": "ETF",
+        "value": "Long-term candidate for staged review; check costs, tracking and suitability before any transaction"
+      },
+      {
+        "name": "Large IT",
+        "kind": "Equity",
+        "value": "Review company results and valuation; no chase entry"
+      }
+    ],
+    "claims": [
+      {
+        "id": "quote-republication-correction-2026-10-14",
+        "value": "Downstox terms prohibit reproducing its service without prior written consent; NSE policy says subscribers may not redistribute market data except as agreed in the relevant agreement.",
+        "sourceUrl": "https://downstox.com/terms"
+      },
+      {
+        "id": "market-commentary-2026-10-14",
+        "value": "India Today reported benchmarks gave up early gains amid rising crude and foreign outflows, while IT shares remained firm.",
+        "sourceUrl": "https://www.indiatoday.in/amp/business/market/story/market-opening-sensex-nifty-turn-flat-crude-oil-fii-outflows-weigh-3016860-2026-10-14"
+      }
+    ],
+    "actionLog": [],
+    "corrections": [
+      {
+        "reason": "Withdraws the exact market quote figures in this report pending confirmed public display rights; refer to the linked source directly.",
+        "sourceUrl": "https://downstox.com/terms",
+        "corrects": "2026-10-14-opening-20261014061621"
+      }
+    ],
+    "unavailableReason": ""
   }
 ]
