@@ -1299,5 +1299,22 @@
         }
       ]
     }
+  ],
+  "2026-10-14": [
+    {
+      "date": "2026-10-14",
+      "status": "WARN",
+      "auditedAt": "2026-10-14T06:16:21.000Z",
+      "reportIds": [
+        "2026-10-14-opening-20261014061621"
+      ],
+      "findings": [
+        {
+          "level": "WARN",
+          "code": "MISSING_CLOSING",
+          "message": "No closing report is recorded yet for this date."
+        }
+      ]
+    }
   ]
 }
