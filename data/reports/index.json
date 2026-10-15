@@ -531,5 +531,93 @@
     "actionLog": [],
     "corrections": [],
     "unavailableReason": ""
+  },
+  {
+    "id": "2026-10-15-opening-20261015055300",
+    "date": "2026-10-15",
+    "type": "opening",
+    "generatedAt": "2026-10-15T05:53:00Z",
+    "generatedAtIST": "2026-10-15 11:23:00 IST",
+    "status": "PUBLISHED",
+    "marketSession": "OPEN_SESSION_EXPECTED",
+    "summary": "Opening review, based on market coverage available through 10:55 IST. After Wednesday's weakness, Indian equities rebounded in morning trade, led by IT and financials, with earnings optimism supporting large caps; smaller stocks were mixed, so participation was not uniform. HCLTech's Q2 release is a concrete sector catalyst, while Tech Mahindra and Wipro results were due later today. The counterweight is hotter-than-expected US inflation, which may keep global rates and growth-stock valuations under pressure; elevated crude remains a risk for India. Opinion for the ₹1,00,000 plan: avoid chasing the IT rally. If the ₹10,000 monthly tranche is intended for long-term equity and fits your risk tolerance, consider a first ₹5,000 broad-market ETF leg only after checking cost, tracking and liquidity; retain the rest for the next review. No trade was executed.",
+    "dataAsOf": "2026-10-15T05:25:00.000Z",
+    "sources": [
+      {
+        "name": "Financial Express — 15 October live market coverage (updated 10:55 IST)",
+        "url": "https://www.financialexpress.com/market/share-market-today-live-stock-market-sensex-nifty-gold-silver-rate-15th-october-2026-sensex-surges-nifty-22900-4361636/"
+      },
+      {
+        "name": "Reuters — Indian shares led by IT and financials; US inflation risk (10:12 IST)",
+        "url": "https://www.marketscreener.com/news/it-financials-lead-indian-shares-higher-hot-us-inflation-caps-gains-ce785dd3d981f526"
+      },
+      {
+        "name": "HCLTech Investor Relations — Q2 FY27 results",
+        "url": "https://www.hcltech.com/investor-relations"
+      },
+      {
+        "name": "U.S. Bureau of Labor Statistics — September 2026 CPI release",
+        "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+      }
+    ],
+    "metrics": {
+      "portfolioDeployedCents": 0
+    },
+    "sectors": [
+      {
+        "name": "IT",
+        "note": "Morning leadership followed HCLTech's results; Tech Mahindra and Wipro results were due later today. Treat post-result strength as a watch signal, not a reason to chase."
+      },
+      {
+        "name": "Financials",
+        "note": "Reuters described the sector among morning leaders after the prior session's weakness; monitor breadth and earnings follow-through."
+      },
+      {
+        "name": "Broader market",
+        "note": "Coverage showed mixed participation outside large caps; a benchmark rebound alone does not confirm a broad trend change."
+      }
+    ],
+    "tracking": [
+      {
+        "name": "Broad-market ETF",
+        "kind": "ETF",
+        "value": "Potential first ₹5,000 tranche leg if long-term equity allocation and risk tolerance fit; compare expense ratio, tracking difference and liquidity first."
+      },
+      {
+        "name": "HCLTech / large IT",
+        "kind": "Equity",
+        "value": "Review Q2 release and valuation; avoid chasing a results-led rally."
+      },
+      {
+        "name": "Tech Mahindra / Wipro",
+        "kind": "Equity",
+        "value": "Watch today's scheduled results and guidance before updating the thesis."
+      }
+    ],
+    "claims": [
+      {
+        "id": "market-morning-context-2026-10-15",
+        "value": "Market coverage updated at 10:55 IST described benchmarks continuing higher in the second hour of trade, IT leadership, and mixed global-market/oil context; no quote figures are reproduced here.",
+        "sourceUrl": "https://www.financialexpress.com/market/share-market-today-live-stock-market-sensex-nifty-gold-silver-rate-15th-october-2026-sensex-surges-nifty-22900-4361636/"
+      },
+      {
+        "id": "earnings-and-breadth-2026-10-15",
+        "value": "Reuters reported morning gains led by IT and financials, with small-cap weakness and Tech Mahindra and Wipro results expected later in the day.",
+        "sourceUrl": "https://www.marketscreener.com/news/it-financials-lead-indian-shares-higher-hot-us-inflation-caps-gains-ce785dd3d981f526"
+      },
+      {
+        "id": "hcltech-q2-release-2026-10-15",
+        "value": "HCLTech's investor-relations page lists its Q2 FY27 investor release and financial results.",
+        "sourceUrl": "https://www.hcltech.com/investor-relations"
+      },
+      {
+        "id": "us-inflation-risk-2026-10-15",
+        "value": "The U.S. BLS reported September CPI rose 0.6% month over month and 3.7% year over year; this may weigh on global rate expectations and growth-stock valuations (analysis).",
+        "sourceUrl": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+      }
+    ],
+    "actionLog": [],
+    "corrections": [],
+    "unavailableReason": ""
   }
 ]
