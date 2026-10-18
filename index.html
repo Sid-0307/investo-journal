@@ -1,25 +1,166 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101a18"><meta name="description" content="A calm, read-only long-term Indian equity investing journal.">
-  <title>Investo — Long-term journal</title><link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10251f">
+  <meta name="description" content="A clear, read-only journal of Indian market research, reported holdings, and a long-term investment plan.">
+  <title>Investo — Research, plan, portfolio</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="shell">
-    <header class="topbar"><a class="brand" href="#top"><span class="brand-mark">i</span><span>investo<span class="brand-dot">.</span></span></a><div class="topmeta"><span class="live-dot"></span><span id="refresh-label">Refresh status unavailable</span><span class="divider"></span><span>Read only</span></div></header>
-    <main id="top">
-      <section class="hero"><div><p class="eyebrow">PERSONAL INVESTING JOURNAL <span>·</span> INDIA</p><h1>Invest with a<br><em>longer view.</em></h1><p class="lede">A quiet record of the plan, the market, and each decision.</p></div><div class="hero-side"><span class="date-label">JOURNAL DATE</span><strong id="journal-date">—</strong><span id="market-status" class="status-pill">Awaiting refresh</span></div></section>
-      <nav class="nav"><a class="active" href="#overview">Overview</a><a href="#markets">Markets</a><a href="#plan">Capital plan</a><a href="#archive">Daily journal</a></nav>
-      <section id="overview" class="section-head"><div><p class="eyebrow">01 / AT A GLANCE</p><h2>Today, in context</h2></div><span class="subtle">No live data? No made-up numbers.</span></section>
-      <section class="metric-grid"><article class="metric-card featured"><div class="metric-top"><span>MONTHLY TRANCHE</span><span class="icon">↗</span></div><strong>₹10,000</strong><p>October 2026 · month 1 of 10</p><div class="mini-track"><span></span></div><small>₹1,00,000 total plan</small></article><article class="metric-card"><div class="metric-top"><span>DEPLOYED</span><span class="status-dot"></span></div><strong id="deployed">₹0</strong><p>Across the investment plan</p><small>Updated from action log</small></article><article class="metric-card"><div class="metric-top"><span>ROLLED CASH</span><span class="icon">↻</span></div><strong id="cash">₹10,000</strong><p>Available, including any carry-forward</p><small>Unused capital rolls forward</small></article><article class="metric-card"><div class="metric-top"><span>MARKET DATA</span><span class="status-dot muted"></span></div><strong class="text-value" id="data-state">Unavailable</strong><p id="data-note">Connect a trusted provider to refresh.</p><small>Prices and fundamentals never guessed</small></article></section>
-      <section id="markets" class="section-head"><div><p class="eyebrow">02 / MARKET PULSE</p><h2>What we’re watching</h2></div><span class="subtle">Source links appear with each refresh</span></section>
-      <section class="market-grid"><article class="panel market-panel"><div class="panel-title"><div><h3>Market overview</h3><p>Indian equities · broad context</p></div><span class="panel-tag">INDEX</span></div><div class="empty-chart"><div class="chart-placeholder"><span id="chart-empty">Market series will appear here</span><svg id="market-chart" viewBox="0 0 500 100" preserveAspectRatio="none" aria-label="Provider-sourced market history"></svg></div><p class="empty-note">No connected data provider · chart intentionally empty</p></div></article><article class="panel"><div class="panel-title"><div><h3>Sector watch</h3><p>Long-term themes to review</p></div><span class="panel-tag">WATCHLIST</span></div><div id="sectors" class="watch-list"></div></article></section>
-      <section class="market-grid secondary-grid"><article class="panel"><div class="panel-title"><div><h3>Commodities & ETFs</h3><p>Context only · not trade signals</p></div><span class="panel-tag">TRACKING</span></div><div id="tracking" class="tracking-grid"></div></article><article class="panel"><div class="panel-title"><div><h3>Latest close</h3><p>Decision summary</p></div><span class="panel-tag">3:00 PM</span></div><div id="latest-close" class="close-empty">No closing report recorded yet.<br><span>Scheduled reports appear here after the first refresh.</span></div></article></section>
-      <section id="plan" class="section-head"><div><p class="eyebrow">03 / DEPLOYMENT</p><h2>Ten months. One lakh.</h2></div><span class="subtle">Patient capital · long-term equity only</span></section>
-      <section class="plan-layout"><article class="panel plan-panel"><div class="plan-summary"><div><span class="caption">TOTAL CAPITAL</span><strong>₹1,00,000</strong></div><div><span class="caption">DEPLOYED SO FAR</span><strong id="plan-deployed">₹0 <small>/ ₹1,00,000</small></strong></div><div><span class="caption">UNUSED CASH</span><strong id="plan-cash">₹10,000</strong></div></div><div id="tranche-grid" class="tranche-grid"></div><p class="plan-foot">₹10,000 allocated each month from October 2026. Unused monthly cash carries forward. No swing, intraday, or F&amp;O.</p></article><aside class="principle"><span class="principle-mark">✳</span><p class="eyebrow">OUR GUARDRAIL</p><h3>Clarity over activity.</h3><p>Every opening view and closing review is saved, checked, and kept in the record.</p></aside></section>
-      <section id="archive" class="section-head archive-heading"><div><p class="eyebrow">04 / THE RECORD</p><h2>Daily journal</h2></div><div class="archive-tools"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search reports…" aria-label="Search reports"></label><select id="report-filter" aria-label="Filter by report type"><option value="all">All reports</option><option value="opening">Opening</option><option value="closing">Closing</option></select></div></section>
-      <section class="archive-summary"><span id="record-count">0 records</span><span>Immutable dated entries <b>·</b> audit status shown for each day</span></section><section id="archive-list" class="archive-list"></section>
-    </main><footer><a class="brand footer-brand" href="#top"><span class="brand-mark">i</span><span>investo<span class="brand-dot">.</span></span></a><span>For personal research · Long-term investing only</span><span>Last successful data refresh: <b id="footer-refresh">Not yet refreshed</b></span></footer>
-  </div><script src="app.js" defer></script>
-</body></html>
+  <a class="skip-link" href="#main">Skip to journal</a>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Investo home"><span class="brand-mark">i</span><span>investo<span class="brand-period">.</span></span></a>
+      <div class="top-actions">
+        <span class="feed-status"><span class="status-light"></span><span id="refresh-status">Loading saved journal…</span></span>
+        <button id="refresh-button" class="refresh-button" type="button" aria-label="Refresh journal data">↻ <span>Refresh</span></button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-mark"></span> YOUR LONG-TERM INVESTING JOURNAL <span class="eyebrow-divider">/</span> INDIA</p>
+          <h1>Know what you own.<br><em>Know why it matters.</em></h1>
+          <p class="hero-lede">Market research, your reported positions, and the next decision—together, without invented prices or noise.</p>
+          <div class="hero-tags"><span>₹1,00,000 plan</span><span>₹10,000 monthly tranche</span><span>Read-only</span></div>
+        </div>
+        <aside class="hero-brief" aria-labelledby="hero-brief-title">
+          <div class="brief-kicker"><span class="signal-pulse"></span><span id="review-label">LATEST MARKET REVIEW</span></div>
+          <p class="review-date" id="review-date">Loading review…</p>
+          <h2 id="hero-brief-title">A clear view is loading</h2>
+          <p id="hero-summary">The journal is reading its saved research.</p>
+          <div class="brief-foot"><span>Market data through <strong id="data-through">—</strong></span><span class="brief-arrow">↘</span></div>
+        </aside>
+      </section>
+
+      <div class="data-note" role="note"><span class="note-icon">i</span><p><strong>Built from the journal’s saved research.</strong> No live exchange feed or price API is loaded on this page. Portfolio charts show reported purchase cost, not current value or profit/loss.</p></div>
+
+      <nav class="main-nav" aria-label="Main sections">
+        <a href="#brief">Market read</a><a href="#portfolio">Your portfolio</a><a href="#coverage">Report coverage</a><a href="#plan">Capital plan</a><a href="#archive">Daily journal</a>
+      </nav>
+
+      <section id="overview" class="metrics-grid" aria-label="Portfolio summary">
+        <article class="metric-card metric-primary">
+          <div class="metric-head"><span>OCTOBER ALLOCATION</span><span class="metric-icon">↗</span></div>
+          <strong id="october-deployed">—</strong>
+          <div class="metric-subline"><span>reported invested cost</span><span id="october-percent">—</span></div>
+          <div class="progress-track"><span id="october-progress"></span></div>
+          <p><span id="october-remaining">—</span> unallocated before fees</p>
+        </article>
+        <article class="metric-card">
+          <div class="metric-head"><span>POSITIONS REPORTED</span><span class="metric-icon green">05</span></div>
+          <strong id="position-count">—</strong>
+          <p>Three match the order screenshot; two are user-reported.</p>
+          <a class="card-link" href="#portfolio">See position details <span>→</span></a>
+        </article>
+        <article class="metric-card metric-caution">
+          <div class="metric-head"><span>CURRENT VALUE / P&amp;L</span><span class="metric-icon amber">—</span></div>
+          <strong class="metric-word">Not calculated</strong>
+          <p>No current prices are stored or fetched. No return is guessed.</p>
+          <a class="card-link" href="#portfolio">Why this is blank <span>→</span></a>
+        </article>
+      </section>
+
+      <section id="brief" class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">01 <span>/</span> MARKET READ</p><h2>What changed—and what it means</h2></div>
+          <span class="section-meta" id="review-stamp">Review date —</span>
+        </div>
+        <div class="market-layout">
+          <div id="observations" class="observation-stack"></div>
+          <aside class="panel earnings-panel">
+            <div class="panel-heading">
+              <div><p class="panel-overline">Q2 FY27 · COMPANY FILINGS</p><h3>IT results were mixed</h3></div>
+              <span class="pill pill-source">Issuer data</span>
+            </div>
+            <p class="panel-intro">Reported year-on-year constant-currency revenue growth. Definitions vary by company; use this as context, not a direct ranking.</p>
+            <div id="earnings-bars" class="earnings-bars"></div>
+            <div id="earnings-footnotes" class="earnings-footnotes"></div>
+            <div class="interpretation"><span class="interpretation-mark">↗</span><p id="review-implication">Reading the results…</p></div>
+            <div class="source-row" id="review-sources"></div>
+          </aside>
+        </div>
+        <div class="decision-strip">
+          <div class="decision-label"><span class="decision-icon">◎</span><div><span>DISCIPLINED PLAN VIEW</span><strong>Progress without forcing a trade</strong></div></div>
+          <p id="plan-view">Loading the saved deployment view…</p>
+        </div>
+      </section>
+
+      <section id="portfolio" class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">02 <span>/</span> YOUR PORTFOLIO</p><h2>What your ₹9,380.70 is based on</h2></div>
+          <span class="section-meta">Cost basis from reported quantities × average prices</span>
+        </div>
+        <div class="portfolio-layout">
+          <article class="panel allocation-panel">
+            <div class="panel-heading"><div><p class="panel-overline">REPORTED PURCHASE COST</p><h3>How the principal is spread</h3></div><span class="pill pill-neutral">No mark-to-market</span></div>
+            <div class="allocation-content">
+              <div id="allocation-donut" class="allocation-donut" role="img" aria-label="Portfolio cost allocation chart"><div class="donut-center"><strong id="portfolio-total">—</strong><span>reported principal</span></div></div>
+              <div id="allocation-legend" class="allocation-legend"></div>
+            </div>
+            <p class="chart-caption">This visual uses your reported purchase cost. It does not show today's share prices, gains, or losses.</p>
+          </article>
+          <article class="panel holdings-panel">
+            <div class="panel-heading"><div><p class="panel-overline">FIVE REPORTED POSITIONS</p><h3>Holdings ledger</h3></div><span class="pill pill-caution">Partially verified</span></div>
+            <div class="table-wrap"><table class="holdings-table"><thead><tr><th>Holding</th><th>Units</th><th>Avg. cost</th><th>Reported cost</th><th>Record</th></tr></thead><tbody id="holdings-body"></tbody></table></div>
+            <p class="holdings-note"><strong>Evidence:</strong> the supplied order screenshot matches GOLD BEES, SOUTH INDIAN BANK and POONAWALLA FINCORP. NIFTYBEES and HDFCBANK are recorded from your message; their order details were not in that screenshot. Exact execution dates and fees were not provided.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="coverage" class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">03 <span>/</span> SCHEDULED REPORTS</p><h2>Last 10 scheduled weekdays. Here’s the actual coverage.</h2></div>
+          <span class="section-meta" id="coverage-period">Opening and closing slots</span>
+        </div>
+        <div class="coverage-summary">
+          <div class="coverage-total"><strong id="coverage-sourced">—</strong><span>of 20 slots have sourced analysis</span></div>
+          <div class="coverage-key"><span><i class="key-dot key-published"></i>Sourced</span><span><i class="key-dot key-unavailable"></i>Provider unavailable</span><span><i class="key-dot key-missing"></i>No entry</span></div>
+        </div>
+        <div class="coverage-counts"><span id="coverage-unavailable">—</span><span id="coverage-missing">—</span><span id="coverage-corrections">—</span></div>
+        <div id="coverage-grid" class="coverage-grid" aria-label="Daily opening and closing report coverage"></div>
+        <p class="coverage-explainer">This map counts only the saved opening/closing records. Correction notes are shown separately and do not erase the original history. A weekend synthesis at the top reviews market context through Friday 16 October.</p>
+      </section>
+
+      <section id="plan" class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">04 <span>/</span> CAPITAL PLAN</p><h2>A ₹1 lakh plan, shown honestly</h2></div>
+          <span class="section-meta">Long-term investing · no intraday or derivatives</span>
+        </div>
+        <div class="plan-layout">
+          <article class="panel plan-panel">
+            <div class="plan-numbers">
+              <div><span>FULL PLAN</span><strong id="plan-total">—</strong></div>
+              <div><span>OCTOBER ALLOCATION</span><strong id="plan-monthly">—</strong></div>
+              <div><span>REPORTED PRINCIPAL</span><strong id="plan-invested">—</strong></div>
+              <div><span>UNALLOCATED IN OCTOBER</span><strong id="plan-remaining">—</strong></div>
+            </div>
+            <div class="plan-bar-label"><span>October tranche</span><strong id="tranche-percent">—</strong></div>
+            <div class="plan-track"><span id="plan-track-fill"></span></div>
+            <div id="month-timeline" class="month-timeline"></div>
+            <div class="future-capital-note"><span class="future-icon">↗</span><p><strong id="future-capital">—</strong> is planned for later monthly tranches; it is not recorded as cash in your account. Actual brokerage cash and charges have not been verified.</p></div>
+          </article>
+          <aside class="plan-aside">
+            <div class="aside-symbol">!</div><p class="panel-overline">THE NEXT USEFUL STEP</p><h3>Make the next decision from evidence.</h3><p>Track the thesis and valuation for each holding before adding another name. The small October balance can roll forward; a fresh stock selection needs current price and business-value checks.</p><a href="#archive" class="text-link">Review saved reports <span>→</span></a>
+          </aside>
+        </div>
+      </section>
+
+      <section id="archive" class="section-block archive-section">
+        <div class="section-heading archive-heading">
+          <div><p class="eyebrow">05 <span>/</span> IMMUTABLE RECORD</p><h2>Daily journal</h2></div>
+          <div class="archive-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search saved reports" aria-label="Search saved reports"></label><select id="report-filter" aria-label="Filter journal by report type"><option value="all">All entries</option><option value="opening">Opening</option><option value="closing">Closing</option><option value="correction">Corrections</option></select></div>
+        </div>
+        <div class="archive-summary"><span id="record-count">Loading entries…</span><span>Original dated reports and audit results stay in the record.</span></div>
+        <div id="archive-list" class="archive-list"></div>
+      </section>
+    </main>
+
+    <footer class="footer"><a class="brand footer-brand" href="#top"><span class="brand-mark">i</span><span>investo<span class="brand-period">.</span></span></a><p>Personal research journal · Not an order or an executed trade</p><span id="footer-status">Reading saved repository data…</span></footer>
+  </div>
+  <script src="app.js" defer></script>
+</body>
+</html>

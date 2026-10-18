@@ -2,6 +2,138 @@
   "planStart": "2026-10",
   "capitalCents": 10000000,
   "monthlyTrancheCents": 1000000,
-  "deployedCents": 0,
-  "actions": []
+  "currentTranche": {
+    "period": "October 2026",
+    "allocationCents": 1000000
+  },
+  "deployedCents": 938070,
+  "reportingBasis": "User-reported quantity × average purchase price; fees and exact execution dates are not recorded.",
+  "futureCapitalIsCash": false,
+  "months": [
+    {
+      "label": "Oct '26",
+      "current": true
+    },
+    {
+      "label": "Nov '26"
+    },
+    {
+      "label": "Dec '26"
+    },
+    {
+      "label": "Jan '27"
+    },
+    {
+      "label": "Feb '27"
+    },
+    {
+      "label": "Mar '27"
+    },
+    {
+      "label": "Apr '27"
+    },
+    {
+      "label": "May '27"
+    },
+    {
+      "label": "Jun '27"
+    },
+    {
+      "label": "Jul '27"
+    }
+  ],
+  "positions": [
+    {
+      "symbol": "NIFTYBEES",
+      "name": "Nippon India ETF Nifty 50",
+      "quantity": 11,
+      "averagePricePaise": 25920,
+      "costCents": 285120,
+      "verification": "USER_REPORTED"
+    },
+    {
+      "symbol": "HDFCBANK",
+      "name": "HDFC Bank",
+      "quantity": 5,
+      "averagePricePaise": 71420,
+      "costCents": 357100,
+      "verification": "USER_REPORTED"
+    },
+    {
+      "symbol": "GOLDBEES",
+      "name": "Nippon India ETF Gold BeES",
+      "quantity": 5,
+      "averagePricePaise": 12007,
+      "costCents": 60035,
+      "verification": "SCREENSHOT_MATCHED"
+    },
+    {
+      "symbol": "SOUTHBANK",
+      "name": "South Indian Bank",
+      "quantity": 20,
+      "averagePricePaise": 5148,
+      "costCents": 102960,
+      "verification": "SCREENSHOT_MATCHED"
+    },
+    {
+      "symbol": "POONAWALLA",
+      "name": "Poonawalla Fincorp",
+      "quantity": 3,
+      "averagePricePaise": 44285,
+      "costCents": 132855,
+      "verification": "SCREENSHOT_MATCHED"
+    }
+  ],
+  "actions": [
+    {
+      "kind": "BUY",
+      "symbol": "NIFTYBEES",
+      "quantity": 11,
+      "averagePricePaise": 25920,
+      "amountCents": 285120,
+      "verification": "USER_REPORTED",
+      "note": "Reported by user; order detail not visible in supplied screenshot."
+    },
+    {
+      "kind": "BUY",
+      "symbol": "HDFCBANK",
+      "quantity": 5,
+      "averagePricePaise": 71420,
+      "amountCents": 357100,
+      "verification": "USER_REPORTED",
+      "note": "Reported by user; order detail not visible in supplied screenshot."
+    },
+    {
+      "kind": "BUY",
+      "symbol": "GOLDBEES",
+      "quantity": 5,
+      "averagePricePaise": 12007,
+      "amountCents": 60035,
+      "verification": "SCREENSHOT_MATCHED",
+      "note": "Position matched to supplied order screenshot."
+    },
+    {
+      "kind": "BUY",
+      "symbol": "SOUTHBANK",
+      "quantity": 20,
+      "averagePricePaise": 5148,
+      "amountCents": 102960,
+      "verification": "SCREENSHOT_MATCHED",
+      "note": "Position matched to supplied order screenshot."
+    },
+    {
+      "kind": "BUY",
+      "symbol": "POONAWALLA",
+      "quantity": 3,
+      "averagePricePaise": 44285,
+      "amountCents": 132855,
+      "verification": "SCREENSHOT_MATCHED",
+      "note": "Position matched to supplied order screenshot."
+    }
+  ],
+  "notes": [
+    "All five entries are based on user-reported holdings; the supplied screenshot matches three positions.",
+    "Reported principal totals ₹9,380.70 of the ₹10,000 October tranche. ₹619.30 is the arithmetic remainder before charges; actual broker cash has not been verified.",
+    "The other ₹90,000 is planned for nine future monthly tranches and is not treated as currently available cash."
+  ]
 }

@@ -1,27 +1,227 @@
-const money = n => `₹${Math.round((n ?? 0) / 100).toLocaleString('en-IN')}`;
-const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmtDate = d => new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',day:'2-digit',month:'short',year:'numeric'}).format(new Date(`${d}T12:00:00+05:30`));
-const fmtTime = d => new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date(d));
-async function load(){
-  const [reports,audits,plan]=await Promise.all(['data/reports/index.json','data/audits/index.json','data/portfolio.json'].map(p=>fetch(p,{cache:'no-store'}).then(r=>r.json())));
-  const latest=[...reports].reverse().find(r=>r.status==='PUBLISHED');
-  const latestReport=reports.at(-1); const audit=latestReport?audits[latestReport.date]:null;
-  const d=new Date();document.querySelector('#journal-date').textContent=new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',weekday:'short',day:'2-digit',month:'short',year:'numeric'}).format(d);
-  const last=latest?fmtDate(latest.date)+' · '+fmtTime(latest.generatedAt)+' IST':'Not yet refreshed';document.querySelector('#refresh-label').textContent=latest?`Last refresh ${fmtTime(latest.generatedAt)} IST`:'No successful refresh';document.querySelector('#footer-refresh').textContent=last;
-  document.querySelector('#market-status').textContent=latestReport?.status==='MARKET_CLOSED'?'Market closed':latest?'Data refreshed':'Data unavailable';
-  document.querySelector('#data-state').textContent=latest?'Sourced update':'Unavailable';document.querySelector('#data-note').textContent=latest?`Research published ${fmtTime(latest.generatedAt)} IST`:(latestReport?.unavailableReason||'No sourced report yet.');
-  const deployed=plan.deployedCents??0,cash=(plan.capitalCents??0)-deployed;['#deployed','#plan-deployed'].forEach(id=>document.querySelector(id).innerHTML=id==='#plan-deployed'?`${money(deployed)} <small>/ ${money(plan.capitalCents)}</small>`:money(deployed));document.querySelector('#cash').textContent=money(cash);document.querySelector('#plan-cash').textContent=money(cash);
-  const sectors=latest?.sectors??[];document.querySelector('#sectors').innerHTML=sectors.length?sectors.map(x=>`<div class="watch-row"><strong>${escapeHtml(x.name)}</strong><span>${escapeHtml(x.note||'In review')}</span></div>`).join(''):['Banks & financials','Consumer','Industrials','Healthcare'].map(x=>`<div class="watch-row"><strong>${x}</strong><span>Watchlist · no live data</span></div>`).join('');
-  const tracking=latest?.tracking??[];const base=tracking.length?tracking: [{name:'Gold',kind:'Commodity',value:'Awaiting data'},{name:'Silver',kind:'Commodity',value:'Awaiting data'},{name:'Nifty ETF',kind:'ETF',value:'Awaiting data'},{name:'Gold ETF',kind:'ETF',value:'Awaiting data'}];document.querySelector('#tracking').innerHTML=base.map(x=>`<div class="tracking-cell"><span>${escapeHtml(x.kind||'TRACKING')} · ${escapeHtml(x.name)}</span><strong>${escapeHtml(x.value??'Awaiting data')}</strong></div>`).join('');
-  const points=latest?.metrics?.history?.filter(p=>Number.isFinite(p.value))??[];
-  if(points.length>1){const lo=Math.min(...points.map(p=>p.value)),hi=Math.max(...points.map(p=>p.value)),span=hi-lo||1;const path=points.map((p,i)=>`${i?'L':'M'} ${(i*500/(points.length-1)).toFixed(1)} ${(88-(p.value-lo)*76/span).toFixed(1)}`).join(' ');document.querySelector('#market-chart').innerHTML=`<path d="${path}"/>`;document.querySelector('#chart-empty').hidden=true;document.querySelector('.empty-note').textContent=`Nifty 50 · provider-sourced history · ${points.length} observations`;}
-  const close=[...reports].reverse().find(r=>r.type==='closing');const closeSupplement=close?[...reports].reverse().find(r=>r.type==='correction'&&(r.corrections||[]).some(c=>c.corrects===close.id)):null;const closeView=closeSupplement||close;const closeAudits=close?audits[close.date]:null;const closeAudit=Array.isArray(closeAudits)?closeAudits.at(-1):closeAudits;document.querySelector('#latest-close').innerHTML=closeView?`<strong>${escapeHtml(fmtDate(closeView.date))} · ${escapeHtml(closeSupplement?'SUPPLEMENTAL ANALYSIS':close.status)}</strong><br>${escapeHtml(closeView.summary)}<br><span>Audit: ${escapeHtml(closeAudit?.status||'PENDING')}</span>`:'No closing report recorded yet.<br><span>Scheduled reports appear here after the first refresh.</span>';
-  const months=['Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul'];const localNow=new Date(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit'}).format(new Date())+'-01T00:00:00');const monthIndex=(localNow.getFullYear()-2026)*12+localNow.getMonth()-9;document.querySelector('#tranche-grid').innerHTML=months.map((m,i)=>`<div class="tranche ${i===monthIndex?'current':''}" title="${i+1}: ${m} ${i<3?'2026':'2027'}">${m}</div>`).join('');
-  const list=document.querySelector('#archive-list'),query=document.querySelector('#search'),filter=document.querySelector('#report-filter');
-  function draw(){const q=query.value.toLowerCase(),f=filter.value;const groups=[...new Set(reports.map(r=>r.date))].sort().reverse().map(date=>({date,items:reports.filter(r=>r.date===date)})).map(g=>({...g,items:g.items.filter(r=>(f==='all'||r.type===f)&&(!q||`${r.summary} ${r.status} ${r.type} ${r.unavailableReason||''}`.toLowerCase().includes(q)))})).filter(g=>g.items.length);
-    document.querySelector('#record-count').textContent=`${reports.length} record${reports.length===1?'':'s'}`;
-    list.innerHTML=groups.length?groups.map(g=>{const all=audits[g.date];const a=(Array.isArray(all)?all.at(-1):all)||{status:'WARN',findings:[{message:'Audit pending.'}]};return `<article class="archive-day"><div class="day-head"><strong>${escapeHtml(fmtDate(g.date))}</strong><span class="audit ${escapeHtml(a.status)}">${escapeHtml(a.status)} · ${a.findings.length} checks</span></div>${g.items.map(r=>`<div class="report-row"><span class="report-time">${escapeHtml(fmtTime(r.generatedAt))} IST</span><div class="report-copy"><strong>${escapeHtml(r.type==='opening'?'Opening review':r.type==='closing'?'Closing review':r.type==='correction'?'Correction note':'Market closed')} · ${escapeHtml(r.status)}</strong><p>${escapeHtml(r.summary)}</p></div><span class="report-label">${escapeHtml(r.type.toUpperCase())}</span><details><summary>Report &amp; audit details</summary><ul><li>Generated: ${escapeHtml(r.generatedAtIST||r.generatedAt)}</li><li>Data as of: ${escapeHtml(r.dataAsOf||'Unavailable')}</li>${(r.sources||[]).map(s=>`<li>Source: <a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.name)}</a></li>`).join('')}${(r.actionLog||[]).map(x=>`<li>Action: ${escapeHtml(x.kind)} ${escapeHtml(money(x.amountCents))} · ${escapeHtml(x.note||'')}</li>`).join('')}${(r.corrections||[]).map(x=>`<li>Correction: ${escapeHtml(x.reason)} · <a href="${escapeHtml(x.sourceUrl)}" target="_blank" rel="noopener">source</a></li>`).join('')}${(a.findings||[]).map(x=>`<li>${escapeHtml(x.level)} · ${escapeHtml(x.message)}</li>`).join('')}${r.unavailableReason?`<li>${escapeHtml(r.unavailableReason)}</li>`:''}</ul></details></div>`).join('')}</article>`}).join(''):'<div class="archive-empty">No matching journal entries.</div>';
-  }
-  query.addEventListener('input',draw);filter.addEventListener('change',draw);draw();
+const INR = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const NUMBER = new Intl.NumberFormat('en-IN');
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = cents => INR.format((Number(cents) || 0) / 100);
+const dateLabel = date => date ? new Intl.DateTimeFormat('en-IN', { timeZone:'Asia/Kolkata', day:'2-digit', month:'short', year:'numeric' }).format(new Date(date + 'T12:00:00+05:30')) : '—';
+const dateTime = instant => instant ? new Intl.DateTimeFormat('en-IN', { timeZone:'Asia/Kolkata', day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', hour12:true }).format(new Date(instant)) + ' IST' : '—';
+const safeSource = source => source && /^https:\/\/[^ ]+/i.test(source.url || '');
+const sourceLink = source => safeSource(source) ? '<a href="' + esc(source.url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name || 'Open source') + ' ↗</a>' : '';
+const shortDate = date => new Intl.DateTimeFormat('en-IN', { timeZone:'Asia/Kolkata', day:'2-digit', month:'short' }).format(new Date(date + 'T12:00:00+05:30'));
+const byDate = (a, b) => String(a.date).localeCompare(String(b.date));
+const colors = ['#92d568','#e6af63','#6b8bdd','#df8273','#60b9a9','#b28bd9'];
+
+async function getJson(path) {
+  const response = await fetch(path, { cache:'no-store' });
+  if (!response.ok) throw new Error('Could not load ' + path + ' (' + response.status + ')');
+  return response.json();
 }
-load().catch(()=>{document.querySelector('#data-note').textContent='Journal data could not be loaded.';});
+function put(selector, value) {
+  const node = document.querySelector(selector);
+  if (node) node.textContent = value;
+}
+function statusLabel(status) {
+  if (status === 'PUBLISHED') return 'Sourced';
+  if (status === 'DATA_UNAVAILABLE') return 'Unavailable';
+  if (status === 'MARKET_CLOSED') return 'Market closed';
+  return status || 'Pending';
+}
+
+function renderReview(review, latestReport) {
+  const latestIsNewer = latestReport && Date.parse(latestReport.generatedAt || 0) > Date.parse(review.reviewedAt || 0);
+  const latestType = latestReport?.type === 'opening' ? 'OPENING REVIEW' : latestReport?.type === 'closing' ? 'CLOSING REVIEW' : latestReport?.type === 'correction' ? 'CORRECTION NOTE' : 'SCHEDULED REPORT';
+  if (latestIsNewer && latestReport.status === 'PUBLISHED') {
+    put('#review-label', 'LATEST SAVED ' + latestType);
+    put('#review-date', 'Published ' + dateTime(latestReport.generatedAt));
+    put('#hero-brief-title', latestReport.headline || latestType[0] + latestType.slice(1).toLowerCase() + ' · ' + dateLabel(latestReport.date));
+    put('#hero-summary', latestReport.summary || review.summary || 'No summary is saved.');
+    put('#data-through', dateLabel(latestReport.dataAsOf || latestReport.date));
+    put('#review-stamp', 'Latest saved report · ' + latestType.toLowerCase() + ' · ' + dateLabel(latestReport.date));
+  } else if (latestIsNewer) {
+    put('#review-label', 'LATEST SCHEDULED CHECK · NO DATA');
+    put('#review-date', latestType + ' · ' + dateTime(latestReport.generatedAt));
+    put('#hero-brief-title', 'The latest scheduled slot had no sourced data');
+    put('#hero-summary', (latestReport.unavailableReason || 'The report could not publish sourced analysis.') + ' The latest saved market synthesis is through ' + dateLabel(review.dataThrough) + '.');
+    put('#data-through', 'Prior review · ' + dateLabel(review.dataThrough));
+    put('#review-stamp', 'Latest slot unavailable · useful context through ' + dateLabel(review.dataThrough));
+  } else {
+    put('#review-label', review.label || 'LATEST MARKET REVIEW');
+    put('#review-date', 'Reviewed ' + dateTime(review.reviewedAt));
+    put('#hero-brief-title', review.title || 'Market review');
+    put('#hero-summary', review.summary || 'No synthesis is saved.');
+    put('#data-through', dateLabel(review.dataThrough));
+    put('#review-stamp', 'Context through ' + dateLabel(review.dataThrough) + ' · reviewed ' + dateTime(review.reviewedAt));
+  }
+  put('#plan-view', review.planView || 'No deployment view recorded.');
+  const observationRoot = document.querySelector('#observations');
+  const currentReportCard = latestIsNewer ? '<article class="observation-card observation-latest"><div class="observation-number">↻</div><div class="observation-body"><div class="observation-label">MOST RECENT SCHEDULED ENTRY · ' + esc(latestType) + ' · ' + esc(statusLabel(latestReport.status)) + '</div><h3>' + esc(latestReport.status === 'PUBLISHED' ? (latestReport.headline || 'New sourced journal entry') : 'No sourced update for this slot') + '</h3><p>' + esc(latestReport.status === 'PUBLISHED' ? latestReport.summary : (latestReport.unavailableReason || 'This scheduled slot has no sourced analysis.')) + '</p><div class="source-row">' + (latestReport.sources || []).map(sourceLink).join('') + '</div></div></article>' : '';
+  observationRoot.innerHTML = currentReportCard + (review.observations || []).map((item, index) =>
+    '<article class="observation-card"><div class="observation-number">0' + (index + 1) + '</div><div class="observation-body"><div class="observation-label">' + esc(item.label) + '</div><h3>' + esc(item.title) + '</h3><p>' + esc(item.text) + '</p>' + (item.readThrough ? '<div class="read-through"><strong>Why it matters</strong><span>' + esc(item.readThrough) + '</span></div>' : '') + '<div class="source-row">' + (item.sources || []).map(sourceLink).join('') + '</div></div></article>'
+  ).join('');
+  const earnings = review.earnings || [];
+  const max = Math.max(1, ...earnings.map(item => Math.abs(Number(item.growthYoyCc) || 0)));
+  document.querySelector('#earnings-bars').innerHTML = earnings.map((item, i) =>
+    '<div class="earnings-row"><div class="earnings-label"><strong>' + esc(item.company) + '</strong><span>' + esc(item.metricLabel) + '</span></div><div class="bar-line"><span class="bar-fill" style="width:' + Math.max(4, Math.abs(Number(item.growthYoyCc) || 0) / max * 100) + '%;background:' + colors[i] + '"></span></div><strong class="bar-value">' + (Number(item.growthYoyCc) > 0 ? '+' : '') + Number(item.growthYoyCc).toFixed(1) + '%</strong></div>'
+  ).join('');
+  document.querySelector('#earnings-footnotes').innerHTML = earnings.map(item => '<p><strong>' + esc(item.company) + ':</strong> ' + esc(item.footnote) + ' ' + (item.source ? sourceLink(item.source) : '') + '</p>').join('');
+  put('#review-implication', review.implication || '');
+  document.querySelector('#review-sources').innerHTML = (review.sources || []).map(sourceLink).join('');
+}
+
+function renderPortfolio(plan) {
+  const positions = plan.positions || [];
+  const total = positions.reduce((sum, item) => sum + (Number(item.costCents) || 0), 0);
+  const allocation = Number(plan.currentTranche?.allocationCents || plan.monthlyTrancheCents || 0);
+  const remainder = Math.max(0, allocation - total);
+  const percent = allocation ? Math.min(100, total / allocation * 100) : 0;
+  put('#october-deployed', money(total));
+  put('#october-percent', percent.toFixed(1) + '% deployed');
+  put('#october-remaining', money(remainder));
+  put('#position-count', NUMBER.format(positions.length));
+  document.querySelector('#october-progress').style.width = percent + '%';
+  put('#portfolio-total', money(total));
+  const segments = [];
+  let accumulated = 0;
+  positions.forEach((item, i) => {
+    const start = accumulated / (total || 1) * 100;
+    accumulated += Number(item.costCents) || 0;
+    const end = accumulated / (total || 1) * 100;
+    segments.push(colors[i % colors.length] + ' ' + start.toFixed(2) + '% ' + end.toFixed(2) + '%');
+  });
+  document.querySelector('#allocation-donut').style.background = segments.length ? 'conic-gradient(' + segments.join(',') + ')' : 'conic-gradient(#e4e9e5 0% 100%)';
+  document.querySelector('#allocation-legend').innerHTML = positions.map((item, i) => {
+    const share = total ? Number(item.costCents) / total * 100 : 0;
+    return '<div class="legend-row"><span class="legend-name"><i style="background:' + colors[i % colors.length] + '"></i><strong>' + esc(item.symbol) + '</strong><small>' + esc(item.name) + '</small></span><span class="legend-value">' + share.toFixed(1) + '%<small>' + money(item.costCents) + '</small></span></div>';
+  }).join('');
+  document.querySelector('#holdings-body').innerHTML = positions.map(item =>
+    '<tr><td><strong>' + esc(item.symbol) + '</strong><span>' + esc(item.name) + '</span></td><td>' + NUMBER.format(item.quantity) + '</td><td>' + money(item.averagePricePaise) + '</td><td><strong>' + money(item.costCents) + '</strong></td><td><span class="verification ' + (item.verification === 'SCREENSHOT_MATCHED' ? 'verification-match' : 'verification-reported') + '">' + (item.verification === 'SCREENSHOT_MATCHED' ? 'Screenshot matched' : 'User-reported') + '</span></td></tr>'
+  ).join('');
+  const bar = document.querySelector('#october-progress');
+  bar.setAttribute('aria-valuenow', percent.toFixed(1));
+  document.querySelector('#footer-status').textContent = 'Portfolio amounts are user-reported · live value and P&L unavailable';
+}
+
+function renderPlan(plan) {
+  const capital = Number(plan.capitalCents) || 0;
+  const monthly = Number(plan.currentTranche?.allocationCents || plan.monthlyTrancheCents) || 0;
+  const positionsTotal = (plan.positions || []).reduce((sum, item) => sum + (Number(item.costCents) || 0), 0);
+  const remaining = Math.max(0, monthly - positionsTotal);
+  const future = Math.max(0, capital - monthly);
+  const percent = monthly ? Math.min(100, positionsTotal / monthly * 100) : 0;
+  put('#plan-total', money(capital));
+  put('#plan-monthly', money(monthly));
+  put('#plan-invested', money(positionsTotal));
+  put('#plan-remaining', money(remaining));
+  put('#tranche-percent', percent.toFixed(1) + '% reported deployed');
+  put('#future-capital', money(future));
+  document.querySelector('#plan-track-fill').style.width = percent + '%';
+  const months = plan.months || [];
+  document.querySelector('#month-timeline').innerHTML = months.map((item, index) => {
+    const current = item.current === true;
+    return '<div class="month-cell ' + (current ? 'month-current' : 'month-future') + '"><span class="month-index">' + String(index + 1).padStart(2, '0') + '</span><strong>' + esc(item.label) + '</strong><small>' + (current ? percent.toFixed(0) + '% used' : 'planned') + '</small></div>';
+  }).join('');
+}
+
+function slotState(reports, date, type) {
+  const record = reports.find(item => item.date === date && item.type === type);
+  if (!record) return { state:'missing', label:'No entry' };
+  if (record.status === 'PUBLISHED') return { state:'published', label:'Sourced' };
+  if (record.status === 'MARKET_CLOSED') return { state:'closed', label:'Closed' };
+  return { state:'unavailable', label:'No data' };
+}
+
+function lastTenWeekdays() {
+  const parts = new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Kolkata', year:'numeric', month:'2-digit', day:'2-digit' }).format(new Date()).split('-').map(Number);
+  const cursor = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+  while (cursor.getUTCDay() === 0 || cursor.getUTCDay() === 6) cursor.setUTCDate(cursor.getUTCDate() - 1);
+  const dates = [];
+  while (dates.length < 10) {
+    const weekday = cursor.getUTCDay();
+    if (weekday !== 0 && weekday !== 6) dates.push(cursor.toISOString().slice(0, 10));
+    cursor.setUTCDate(cursor.getUTCDate() - 1);
+  }
+  return dates.reverse();
+}
+function renderCoverage(review, reports) {
+  const dates = lastTenWeekdays();
+  put('#coverage-period', dates.length ? dateLabel(dates[0]) + ' – ' + dateLabel(dates[dates.length - 1]) + ' · scheduled weekdays' : 'No dates');
+  let sourced = 0, unavailable = 0, missing = 0;
+  const corrections = reports.filter(item => item.type === 'correction' && item.status === 'PUBLISHED');
+  const rows = dates.map(date => {
+    const opening = slotState(reports, date, 'opening');
+    const closing = slotState(reports, date, 'closing');
+    [opening, closing].forEach(item => {
+      if (item.state === 'published') sourced++;
+      else if (item.state === 'unavailable') unavailable++;
+      else if (item.state === 'missing') missing++;
+    });
+    const dateCorrections = corrections.filter(item => item.date === date);
+    return '<article class="coverage-day"><div class="coverage-date">' + esc(shortDate(date)) + '<span>' + esc(new Intl.DateTimeFormat('en-IN',{weekday:'short',timeZone:'Asia/Kolkata'}).format(new Date(date + 'T12:00:00+05:30'))) + '</span></div><div class="coverage-slot"><span>Open</span><b class="slot-' + opening.state + '">' + opening.label + '</b></div><div class="coverage-slot"><span>Close</span><b class="slot-' + closing.state + '">' + closing.label + '</b></div>' + (dateCorrections.length ? '<div class="correction-mark">+' + dateCorrections.length + ' correction' + (dateCorrections.length === 1 ? '' : 's') + '</div>' : '') + '</article>';
+  }).join('');
+  const total = dates.length * 2;
+  put('#coverage-sourced', sourced + ' / ' + total);
+  put('#coverage-unavailable', unavailable + ' slots recorded as provider-unavailable');
+  put('#coverage-missing', missing + ' slots have no entry');
+  put('#coverage-corrections', corrections.length + ' published correction/supplement notes');
+  document.querySelector('#coverage-grid').innerHTML = rows;
+}
+
+function renderArchive(reports, audits) {
+  const list = document.querySelector('#archive-list');
+  const query = document.querySelector('#search');
+  const filter = document.querySelector('#report-filter');
+  function draw() {
+    const q = query.value.trim().toLowerCase();
+    const type = filter.value;
+    const sorted = [...reports].sort((a, b) => byDate(b, a) || String(b.generatedAt).localeCompare(String(a.generatedAt)));
+    const groups = [];
+    sorted.forEach(item => {
+      let group = groups.find(row => row.date === item.date);
+      if (!group) { group = { date:item.date, items:[] }; groups.push(group); }
+      if ((type === 'all' || item.type === type) && (!q || (item.summary + ' ' + item.status + ' ' + item.type + ' ' + (item.unavailableReason || '')).toLowerCase().includes(q))) group.items.push(item);
+    });
+    const visible = groups.filter(group => group.items.length);
+    put('#record-count', reports.length + ' saved entries · ' + groups.filter(group => group.items.length).length + ' matching dates');
+    list.innerHTML = visible.length ? visible.map(group => {
+      const auditList = audits[group.date];
+      const audit = (Array.isArray(auditList) ? auditList[auditList.length - 1] : auditList) || { status:'PENDING', findings:[] };
+      return '<article class="archive-day"><div class="archive-day-head"><strong>' + esc(dateLabel(group.date)) + '</strong><span class="audit-pill audit-' + esc(String(audit.status || 'PENDING').toLowerCase()) + '">' + esc(audit.status || 'PENDING') + ' audit</span></div>' + group.items.map(item => {
+        const kind = item.type === 'opening' ? 'Opening review' : item.type === 'closing' ? 'Closing review' : item.type === 'correction' ? 'Correction / supplement' : 'Journal entry';
+        return '<details class="archive-entry"><summary><span class="archive-time">' + esc(dateTime(item.generatedAt)) + '</span><span class="archive-title">' + esc(kind) + '<small>' + esc(statusLabel(item.status)) + '</small></span><span class="archive-chevron">+</span></summary><div class="archive-copy"><p>' + esc(item.summary) + '</p>' + (item.unavailableReason ? '<p class="unavailable-reason">' + esc(item.unavailableReason) + '</p>' : '') + '<dl><div><dt>Generated</dt><dd>' + esc(item.generatedAtIST || item.generatedAt || '—') + '</dd></div><div><dt>Market context as of</dt><dd>' + esc(item.dataAsOf || 'Not recorded') + '</dd></div></dl><div class="source-row">' + (item.sources || []).map(sourceLink).join('') + '</div>' + (item.corrections || []).map(correction => '<p class="correction-copy"><strong>Correction:</strong> ' + esc(correction.reason) + ' ' + (safeSource({url:correction.sourceUrl,name:'Source'}) ? sourceLink({url:correction.sourceUrl,name:'Open source'}) : '') + '</p>').join('') + '<div class="audit-findings">' + (audit.findings || []).map(finding => '<span>' + esc(finding.level || 'INFO') + ' · ' + esc(finding.message) + '</span>').join('') + '</div></div></details>';
+      }).join('') + '</article>';
+    }).join('') : '<div class="archive-empty">No saved entries match that search.</div>';
+  }
+  if (!query.dataset.bound) {
+    query.addEventListener('input', draw);
+    filter.addEventListener('change', draw);
+    query.dataset.bound = 'true';
+  }
+  draw();
+}
+
+async function loadJournal() {
+  const status = document.querySelector('#refresh-status');
+  try {
+    status.textContent = 'Reading saved research…';
+    const [reports, audits, plan, review] = await Promise.all([
+      getJson('data/reports/index.json'),
+      getJson('data/audits/index.json'),
+      getJson('data/portfolio.json'),
+      getJson('data/period-review.json')
+    ]);
+    const latest = [...reports].sort((a,b) => String(b.generatedAt).localeCompare(String(a.generatedAt)))[0];
+    renderReview(review, latest);
+    renderPortfolio(plan);
+    renderPlan(plan);
+    renderCoverage(review, reports);
+    renderArchive(reports, audits);
+    status.textContent = latest ? 'Saved journal · latest scheduled entry ' + dateLabel(latest.date) : 'Saved journal · no daily entries yet';
+    document.querySelector('#refresh-button').setAttribute('aria-label', 'Refresh saved journal data');
+  } catch (error) {
+    status.textContent = 'Journal data could not be loaded';
+    put('#hero-brief-title', 'Saved research did not load');
+    put('#hero-summary', 'Refresh the page in a moment. The website does not fetch market quotes.');
+    put('#footer-status', error.message || 'Data unavailable');
+  }
+}
+document.querySelector('#refresh-button').addEventListener('click', loadJournal);
+loadJournal();

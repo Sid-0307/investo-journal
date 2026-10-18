@@ -1,0 +1,90 @@
+{
+  "id": "2026-10-18-weekend-synthesis",
+  "label": "WEEKEND MARKET SYNTHESIS",
+  "title": "IT led the rebound. Company results still diverge.",
+  "summary": "Market coverage reported a stronger close on Friday 16 October, with IT among the leaders. The Q2 filings show why that rally needs a company-by-company read: Tech Mahindra reported firmer growth and deal wins, while Wipro’s revenue growth was modest and bookings fell sequentially.",
+  "reviewedAt": "2026-10-18T08:48:41Z",
+  "reviewedAtIST": "2026-10-18 14:18:41 IST",
+  "dataThrough": "2026-10-16",
+  "coverageDates": [
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-16"
+  ],
+  "sources": [
+    {
+      "name": "Financial Express · 16 Oct market review",
+      "url": "https://www.financialexpress.com/market/share-market-today-live-stock-market-sensex-nifty-gold-silver-rate-16th-october-2026-gift-nifty-4362695/"
+    },
+    {
+      "name": "Tech Mahindra · Q2 FY27 results",
+      "url": "https://www.techmahindra.com/insights/press-releases/techmahindra-q2-fy27-results/"
+    },
+    {
+      "name": "Wipro · Q2 FY27 results",
+      "url": "https://www.wipro.com/newsroom/press-releases/2026/wipro-announces-results-for-the-quarter-ended-september-30-2026/"
+    }
+  ],
+  "observations": [
+    {
+      "label": "MARKET TONE · FRIDAY 16 OCT",
+      "title": "The IT-led rebound carried into Friday",
+      "text": "Financial Express reported Indian benchmarks finishing higher, with IT among the leading sectors. This is useful short-window context; it does not prove that the advance is broad or durable. No index quote series is republished here.",
+      "readThrough": "A sector-led session can conceal uneven participation. One or two strong days are not a buy signal for every IT stock.",
+      "sources": [
+        {
+          "name": "Market coverage",
+          "url": "https://www.financialexpress.com/market/share-market-today-live-stock-market-sensex-nifty-gold-silver-rate-16th-october-2026-gift-nifty-4362695/"
+        }
+      ]
+    },
+    {
+      "label": "EARNINGS · Q2 FY27",
+      "title": "Results support selectivity, not a blanket sector call",
+      "text": "Tech Mahindra reported 7.2% year-on-year constant-currency revenue growth, a 14.8% EBIT margin (about 40 basis points higher quarter on quarter), and deal wins up 25.4% year on year. Wipro reported 0.6% year-on-year constant-currency growth in IT services revenue; total bookings were down 22.9% quarter on quarter in constant currency.",
+      "readThrough": "These are issuer-reported company measures with different definitions. Track whether bookings convert into revenue and whether growth holds; do not rank the firms from one quarter alone.",
+      "sources": [
+        {
+          "name": "Tech Mahindra filing",
+          "url": "https://www.techmahindra.com/insights/press-releases/techmahindra-q2-fy27-results/"
+        },
+        {
+          "name": "Wipro filing",
+          "url": "https://www.wipro.com/newsroom/press-releases/2026/wipro-announces-results-for-the-quarter-ended-september-30-2026/"
+        }
+      ]
+    }
+  ],
+  "earnings": [
+    {
+      "company": "Tech Mahindra",
+      "metricLabel": "Issuer-reported revenue growth · YoY CC",
+      "growthYoyCc": 7.2,
+      "footnote": "EBIT margin 14.8%, up about 40 bps QoQ; deal wins TCV up 25.4% YoY.",
+      "source": {
+        "name": "Source",
+        "url": "https://www.techmahindra.com/insights/press-releases/techmahindra-q2-fy27-results/"
+      }
+    },
+    {
+      "company": "Wipro",
+      "metricLabel": "IT services revenue growth · YoY CC",
+      "growthYoyCc": 0.6,
+      "footnote": "Total bookings down 22.9% QoQ CC; IT services operating margin 16.5%, up 0.5 percentage points QoQ.",
+      "source": {
+        "name": "Source",
+        "url": "https://www.wipro.com/newsroom/press-releases/2026/wipro-announces-results-for-the-quarter-ended-september-30-2026/"
+      }
+    }
+  ],
+  "implication": "Research opinion: do not chase the IT rally. The current repository has no live valuations or current prices, so it cannot support a fresh stock-specific buy price or a current portfolio return.",
+  "planView": "Your reported principal is ₹9,380.70 of October’s ₹10,000 allocation; ₹619.30 remains unallocated before fees. That is already 93.8% of this month’s tranche. No forced sixth position is justified by the saved market and earnings evidence. Carry the small balance to the next review or consider a diversified addition only after checking current price, valuation and execution costs. The remaining ₹90,000 belongs to future monthly tranches, not today’s brokerage cash.",
+  "assessmentNote": "Market interpretation is an inference from the linked market coverage and company filings. Portfolio principal and holdings are user-reported."
+}
