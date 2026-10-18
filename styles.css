@@ -346,3 +346,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
   html{scroll-behavior:auto}
   *,*::before,*::after{transition:none!important;animation:none!important}
 }
+
+/* Keep nested data visualizations from widening their grid tracks on phones. */
+.market-layout>*,
+.portfolio-layout>*,
+.plan-layout>*,
+.metrics-grid>*,
+.hero>*{min-width:0}
+.portfolio-layout{min-width:0}
+.portfolio-layout>*{min-width:0}
+.allocation-content,.allocation-legend,.legend-row,.legend-name,.legend-value{min-width:0}
+@media(max-width:720px){
+  .allocation-content{grid-template-columns:minmax(102px,128px) minmax(0,1fr)}
+  .allocation-legend{overflow:hidden}
+  .legend-row{gap:3px}
+}
+@media(max-width:420px){
+  .allocation-content{grid-template-columns:110px minmax(0,1fr)}
+}
