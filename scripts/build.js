@@ -5,7 +5,9 @@ const dist = path.join(ROOT, 'dist');
 fs.rmSync(dist, { recursive: true, force: true }); fs.mkdirSync(dist, { recursive: true });
 fs.copyFileSync(path.join(ROOT, 'styles.css'), path.join(dist, 'styles.css'));
 const appVersion = process.env.GITHUB_SHA || `local-${Date.now()}`;
-const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8').replace('src="app.js"', `src="app.js?v=${appVersion}"`);
+const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8')
+  .replace('href="styles.css"', `href="styles.css?v=${appVersion}"`)
+  .replace('src="app.js"', `src="app.js?v=${appVersion}"`);
 fs.writeFileSync(path.join(dist, 'index.html'), html);
 fs.copyFileSync(path.join(ROOT, 'app.js'), path.join(dist, 'app.js'));
 fs.cpSync(path.join(ROOT, 'data'), path.join(dist, 'data'), { recursive: true });
