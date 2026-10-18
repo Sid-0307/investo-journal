@@ -7,7 +7,7 @@
     "allocationCents": 1000000
   },
   "deployedCents": 938070,
-  "reportingBasis": "User-reported quantity × average purchase price; fees and exact execution dates are not recorded.",
+  "reportingBasis": "The owner confirmed an aggregate invested amount of ₹9,371.00 as of 18 Oct 2026. Earlier per-position purchase-cost records remain preserved, but their ₹9,380.70 sum does not reconcile to the latest aggregate and is not used for public position weights or tranche progress.",
   "futureCapitalIsCash": false,
   "months": [
     {
@@ -132,8 +132,12 @@
     }
   ],
   "notes": [
-    "All five entries are based on user-reported holdings; the supplied screenshot matches three positions.",
-    "Reported principal totals ₹9,380.70 of the ₹10,000 October tranche. ₹619.30 is the arithmetic remainder before charges; actual broker cash has not been verified.",
-    "The other ₹90,000 is planned for nine future monthly tranches and is not treated as currently available cash."
-  ]
+    "Five positions are owner-reported; the supplied screenshot matches three, while NIFTYBEES and HDFCBANK came from the owner's message.",
+    "Owner-confirmed invested total is ₹9,371.00 from the ₹10,000 October tranche; ₹629.00 is the arithmetic remainder before fees.",
+    "Older itemized position-cost values sum to ₹9,380.70, a ₹9.70 discrepancy versus the owner's latest confirmed aggregate. Public pages suppress per-position costs until reconciled.",
+    "The other ₹90,000 is planned for nine future monthly tranches and is not treated as currently available brokerage cash."
+  ],
+  "ownerConfirmedInvestedCents": 937100,
+  "ownerConfirmedAsOf": "2026-10-18",
+  "ownerConfirmedPositionCount": 5
 }

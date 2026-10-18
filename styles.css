@@ -364,3 +364,46 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 @media(max-width:420px){
   .allocation-content{grid-template-columns:110px minmax(0,1fr)}
 }
+
+
+/* Compact evidence queue and aggregate-first portfolio summary. */
+.watchlist-intro{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 18px;margin:-5px 0 14px;padding:12px 15px;border:1px solid #dce8d6;border-radius:13px;background:#f6faef;color:#5d6e5d}
+.watchlist-intro strong{color:#36553a;font-size:11px}
+.watchlist-intro span{font-size:10px}
+.next-candidate-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.candidate-card{min-width:0;display:flex;flex-direction:column;padding:16px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 20px rgba(27,48,38,.035)}
+.candidate-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.candidate-step{font-size:8px;font-weight:850;letter-spacing:.8px;color:#849087}
+.candidate-stage{padding:5px 8px;border-radius:99px;background:#eef3e9;color:#55794e;font-size:8px;font-weight:800}
+.candidate-compare .candidate-stage{background:#eaf0fa;color:#4d6694}
+.candidate-wait .candidate-stage{background:#fff3df;color:#936a2f}
+.candidate-card h3{margin:14px 0 1px;color:var(--forest);font-size:18px;letter-spacing:-.5px}
+.candidate-ticker{margin:0 0 12px;color:#748178;font-size:9px;font-weight:750;letter-spacing:.4px}
+.candidate-ticker span{padding:0 4px;color:#b1b9b2}
+.candidate-evidence{padding:11px 12px;border-radius:10px;background:#f1f6ee}
+.candidate-evidence strong,.candidate-check strong,.candidate-risk strong{display:block;color:#627661;font-size:8px;font-weight:850;letter-spacing:.7px;text-transform:uppercase}
+.candidate-evidence p,.candidate-check p,.candidate-risk p{margin:5px 0 0;color:#56645b;font-size:10px;line-height:1.55}
+.candidate-thesis{min-height:52px;margin:11px 0;color:#526156;font-size:10px;line-height:1.6}
+.candidate-check,.candidate-risk{margin-top:9px;padding-top:9px;border-top:1px solid #edf0ec}
+.candidate-risk strong{color:#9b7140}
+.candidate-card .source-row{margin-top:auto;padding-top:12px}
+.candidate-card .source-row a{font-size:9px}
+.watchlist-empty{grid-column:1/-1;padding:20px;background:#fff;border:1px dashed var(--line);border-radius:13px;color:var(--muted);font-size:11px}
+.allocation-progress-layout{grid-template-columns:158px minmax(0,1fr)}
+.allocation-copy{display:grid;gap:5px;color:#758278;font-size:10px}
+.allocation-copy strong{color:#507e43;font-size:18px}
+.allocation-copy b{margin-top:8px;color:#31473a;font-size:14px}
+.allocation-copy small{color:#8b968e;font-size:9px}
+@media(max-width:1050px){.next-candidate-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){
+  .next-candidate-grid{grid-template-columns:1fr}
+  .candidate-thesis{min-height:0}
+  .allocation-progress-layout{grid-template-columns:128px minmax(0,1fr)}
+  .holdings-table{min-width:0;table-layout:fixed}
+  .holdings-table th,.holdings-table td{padding:8px 5px;font-size:8px;overflow-wrap:anywhere}
+  .holdings-table th:nth-child(2),.holdings-table td:nth-child(2){width:42px}
+  .holdings-table th:nth-child(3),.holdings-table td:nth-child(3){width:72px}
+  .holdings-table th:nth-child(4),.holdings-table td:nth-child(4){width:92px}
+  .verification{white-space:normal;padding:3px 4px;font-size:7px}
+}
+@media(max-width:420px){.allocation-progress-layout{grid-template-columns:110px minmax(0,1fr)}}

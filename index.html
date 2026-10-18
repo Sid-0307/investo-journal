@@ -36,10 +36,10 @@
         </aside>
       </section>
 
-      <div class="data-note" role="note"><span class="note-icon">i</span><p><strong>Built from the journal’s saved research.</strong> No live exchange feed or price API is loaded on this page. Portfolio charts show reported purchase cost, not current value or profit/loss.</p></div>
+      <div class="data-note" role="note"><span class="note-icon">i</span><p><strong>Built from the journal’s saved research.</strong> No live exchange feed or price API is loaded on this page. The site shows your confirmed invested amount, dated analysis and a source-linked research queue. It does not fetch live exchange prices or calculate current profit/loss.</p></div>
 
       <nav class="main-nav" aria-label="Main sections">
-        <a href="#brief">Market read</a><a href="#portfolio">Your portfolio</a><a href="#coverage">Report coverage</a><a href="#plan">Capital plan</a><a href="#archive">Daily journal</a>
+        <a href="#brief">Market read</a><a href="#next-study">Next to study</a><a href="#portfolio">Your portfolio</a><a href="#coverage">Report coverage</a><a href="#plan">Capital plan</a><a href="#archive">Daily journal</a>
       </nav>
 
       <section id="overview" class="metrics-grid" aria-label="Portfolio summary">
@@ -89,36 +89,45 @@
         </div>
       </section>
 
+      <section id="next-study" class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">02 <span>/</span> NEXT TO STUDY</p><h2>A short, evidence-led research queue</h2></div>
+          <span class="section-meta" id="watchlist-asof">Research date —</span>
+        </div>
+        <div class="watchlist-intro"><strong>These are candidates to investigate, not predicted winners or buy calls.</strong><span>Queue order reflects the latest published earnings evidence. Check current valuation, price and risk before considering any investment.</span></div>
+        <div id="next-candidates" class="next-candidate-grid" aria-label="Source-backed stocks to research next"></div>
+      </section>
+
       <section id="portfolio" class="section-block">
         <div class="section-heading">
-          <div><p class="eyebrow">02 <span>/</span> YOUR PORTFOLIO</p><h2>What your ₹9,380.70 is based on</h2></div>
-          <span class="section-meta">Cost basis from reported quantities × average prices</span>
+          <div><p class="eyebrow">03 <span>/</span> YOUR PORTFOLIO</p><h2>Five holdings. ₹9,371 invested.</h2></div>
+          <span class="section-meta">Aggregate confirmed by you on 18 Oct 2026</span>
         </div>
         <div class="portfolio-layout">
           <article class="panel allocation-panel">
-            <div class="panel-heading"><div><p class="panel-overline">REPORTED PURCHASE COST</p><h3>How the principal is spread</h3></div><span class="pill pill-neutral">No mark-to-market</span></div>
-            <div class="allocation-content">
-              <div id="allocation-donut" class="allocation-donut" role="img" aria-label="Portfolio cost allocation chart"><div class="donut-center"><strong id="portfolio-total">—</strong><span>reported principal</span></div></div>
-              <div id="allocation-legend" class="allocation-legend"></div>
+            <div class="panel-heading"><div><p class="panel-overline">OCTOBER TRANCHE</p><h3>Deployment at a glance</h3></div><span class="pill pill-neutral">Owner-confirmed</span></div>
+            <div class="allocation-content allocation-progress-layout">
+              <div id="allocation-donut" class="allocation-donut" role="img" aria-label="October tranche progress"><div class="donut-center"><strong id="portfolio-total">—</strong><span>invested</span></div></div>
+              <div class="allocation-copy"><strong id="allocation-percent">—</strong><span>of this month’s ₹10,000</span><b id="allocation-remaining">—</b><small>left before fees</small></div>
             </div>
-            <p class="chart-caption">This visual uses your reported purchase cost. It does not show today's share prices, gains, or losses.</p>
+            <p class="chart-caption">The ₹9,371 total is your latest confirmation. No current share value or profit/loss is shown.</p>
           </article>
           <article class="panel holdings-panel">
-            <div class="panel-heading"><div><p class="panel-overline">FIVE REPORTED POSITIONS</p><h3>Holdings ledger</h3></div><span class="pill pill-caution">Partially verified</span></div>
-            <div class="table-wrap"><table class="holdings-table"><thead><tr><th>Holding</th><th>Units</th><th>Avg. cost</th><th>Reported cost</th><th>Record</th></tr></thead><tbody id="holdings-body"></tbody></table></div>
-            <p class="holdings-note"><strong>Evidence:</strong> the supplied order screenshot matches GOLD BEES, SOUTH INDIAN BANK and POONAWALLA FINCORP. NIFTYBEES and HDFCBANK are recorded from your message; their order details were not in that screenshot. Exact execution dates and fees were not provided.</p>
+            <div class="panel-heading"><div><p class="panel-overline">FIVE REPORTED POSITIONS</p><h3>What you hold</h3></div><span class="pill pill-caution">Reported holdings</span></div>
+            <div class="table-wrap"><table class="holdings-table"><thead><tr><th>Holding</th><th>Units</th><th>Type</th><th>Record</th></tr></thead><tbody id="holdings-body"></tbody></table></div>
+            <p class="holdings-note"><strong>Amount shown:</strong> ₹9,371 is your latest confirmed total. Older per-position cost figures are hidden because they do not reconcile to that amount.</p>
           </article>
         </div>
       </section>
 
       <section id="coverage" class="section-block">
         <div class="section-heading">
-          <div><p class="eyebrow">03 <span>/</span> SCHEDULED REPORTS</p><h2>Last 10 scheduled weekdays. Here’s the actual coverage.</h2></div>
+          <div><p class="eyebrow">04 <span>/</span> SCHEDULED REPORTS</p><h2>Last 10 weekdays. Every slot accounted for.</h2></div>
           <span class="section-meta" id="coverage-period">Opening and closing slots</span>
         </div>
         <div class="coverage-summary">
           <div class="coverage-total"><strong id="coverage-sourced">—</strong><span>of 20 slots have sourced analysis</span></div>
-          <div class="coverage-key"><span><i class="key-dot key-published"></i>Sourced</span><span><i class="key-dot key-unavailable"></i>Provider unavailable</span><span><i class="key-dot key-missing"></i>No entry</span></div>
+          <div class="coverage-key"><span><i class="key-dot key-published"></i>Sourced</span><span><i class="key-dot key-unavailable"></i>No sourced analysis</span><span><i class="key-dot key-missing"></i>No entry</span></div>
         </div>
         <div class="coverage-counts"><span id="coverage-unavailable">—</span><span id="coverage-missing">—</span><span id="coverage-corrections">—</span></div>
         <div id="coverage-grid" class="coverage-grid" aria-label="Daily opening and closing report coverage"></div>
@@ -127,7 +136,7 @@
 
       <section id="plan" class="section-block">
         <div class="section-heading">
-          <div><p class="eyebrow">04 <span>/</span> CAPITAL PLAN</p><h2>A ₹1 lakh plan, shown honestly</h2></div>
+          <div><p class="eyebrow">05 <span>/</span> CAPITAL PLAN</p><h2>A ₹1 lakh plan, shown honestly</h2></div>
           <span class="section-meta">Long-term investing · no intraday or derivatives</span>
         </div>
         <div class="plan-layout">
@@ -151,7 +160,7 @@
 
       <section id="archive" class="section-block archive-section">
         <div class="section-heading archive-heading">
-          <div><p class="eyebrow">05 <span>/</span> IMMUTABLE RECORD</p><h2>Daily journal</h2></div>
+          <div><p class="eyebrow">06 <span>/</span> IMMUTABLE RECORD</p><h2>Daily journal</h2></div>
           <div class="archive-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search saved reports" aria-label="Search saved reports"></label><select id="report-filter" aria-label="Filter journal by report type"><option value="all">All entries</option><option value="opening">Opening</option><option value="closing">Closing</option><option value="correction">Corrections</option></select></div>
         </div>
         <div class="archive-summary"><span id="record-count">Loading entries…</span><span>Original dated reports and audit results stay in the record.</span></div>

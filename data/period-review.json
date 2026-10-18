@@ -30,6 +30,10 @@
     {
       "name": "Wipro · Q2 FY27 results",
       "url": "https://www.wipro.com/newsroom/press-releases/2026/wipro-announces-results-for-the-quarter-ended-september-30-2026/"
+    },
+    {
+      "name": "TCS Q2 FY27 financial results · 8 Oct",
+      "url": "https://www.tcs.com/who-we-are/newsroom/press-release/tcs-financial-results-q2-fy-2027"
     }
   ],
   "observations": [
@@ -84,7 +88,61 @@
       }
     }
   ],
-  "implication": "Research opinion: do not chase the IT rally. The current repository has no live valuations or current prices, so it cannot support a fresh stock-specific buy price or a current portfolio return.",
-  "planView": "Your reported principal is ₹9,380.70 of October’s ₹10,000 allocation; ₹619.30 remains unallocated before fees. That is already 93.8% of this month’s tranche. No forced sixth position is justified by the saved market and earnings evidence. Carry the small balance to the next review or consider a diversified addition only after checking current price, valuation and execution costs. The remaining ₹90,000 belongs to future monthly tranches, not today’s brokerage cash.",
-  "assessmentNote": "Market interpretation is an inference from the linked market coverage and company filings. Portfolio principal and holdings are user-reported."
+  "implication": "Research opinion: the Q2 evidence supports a short company-by-company queue, not a blanket IT purchase. Tech Mahindra has the strongest recent growth signal, TCS is a quality/valuation comparator, and Wipro needs a clearer bookings and revenue recovery. No live price or valuation is stored, so none is marked ready to buy.",
+  "planView": "You confirmed ₹9,371 invested from October’s ₹10,000 tranche; ₹629 remains before fees. The next research queue is Tech Mahindra (valuation check), TCS (quality and growth comparison), and Wipro (wait for revenue and bookings recovery). These are not buy calls: the site has no current valuation or share-price feed. Keep the small balance unforced until price, value and risk are checked. The remaining ₹90,000 is planned for future monthly tranches, not brokerage cash.",
+  "assessmentNote": "The queue order is a research priority inferred from issuer-reported Q2 FY27 results, not a return forecast. Market interpretation is an inference from linked reporting and filings. Portfolio aggregate is the owner-confirmed ₹9,371; the old position-level cost split is unreconciled and hidden in the public visuals.",
+  "watchlistAsOf": "2026-10-18",
+  "nextCandidates": [
+    {
+      "name": "Tech Mahindra",
+      "nse": "TECHM",
+      "bse": "532755",
+      "stageKey": "study",
+      "stage": "Study valuation next",
+      "evidence": "Q2 FY27 constant-currency revenue grew 7.2% year on year; EBIT margin was 14.8%, up about 40 bps quarter on quarter; deal wins rose 25.4% year on year.",
+      "thesis": "The latest release gives the clearest growth-and-margin momentum in this small peer set. New deal value is a lead indicator, not guaranteed future revenue.",
+      "nextCheck": "Check valuation at a current, sourced price, then watch Q3 growth, margin progression and conversion of new deals into revenue.",
+      "risk": "Global client spending, currency, pricing pressure from AI and valuation after a strong rally.",
+      "sources": [
+        {
+          "name": "Tech Mahindra Q2 FY27 results · 15 Oct",
+          "url": "https://www.techmahindra.com/insights/press-releases/techmahindra-q2-fy27-results/"
+        }
+      ]
+    },
+    {
+      "name": "Tata Consultancy Services",
+      "nse": "TCS",
+      "bse": "532540",
+      "stageKey": "compare",
+      "stage": "Compare quality",
+      "evidence": "Q2 FY27 constant-currency revenue grew 0.5% quarter on quarter; operating margin was 24.0%; reported TCV was US$9.6B and annualized AI revenue US$3.1B.",
+      "thesis": "Strong margins and contract wins deserve follow-up, while modest sequential revenue growth means conversion into recognized revenue matters.",
+      "nextCheck": "Compare Q3 constant-currency growth and deal conversion while checking that margins remain resilient.",
+      "risk": "Large contract timing, global technology budgets, pricing and AI-related delivery changes.",
+      "sources": [
+        {
+          "name": "TCS Q2 FY27 financial results · 8 Oct",
+          "url": "https://www.tcs.com/who-we-are/newsroom/press-release/tcs-financial-results-q2-fy-2027"
+        }
+      ]
+    },
+    {
+      "name": "Wipro",
+      "nse": "WIPRO",
+      "bse": "507685",
+      "stageKey": "wait",
+      "stage": "Wait for recovery",
+      "evidence": "Q2 FY27 IT-services revenue was flat sequentially and up 0.6% year on year in constant currency; operating margin was 16.5%, while total bookings fell 22.9% quarter on quarter in constant currency.",
+      "thesis": "Margin improvement and cash conversion are positives, but subdued growth and lower bookings leave less near-term visibility than the other two candidates.",
+      "nextCheck": "Look for sustained revenue growth and a recovery in bookings before moving this name forward in the queue.",
+      "risk": "Deal conversion, prolonged low growth and global technology spending.",
+      "sources": [
+        {
+          "name": "Wipro Q2 FY27 results · 15 Oct",
+          "url": "https://www.wipro.com/newsroom/press-releases/2026/wipro-announces-results-for-the-quarter-ended-september-30-2026/"
+        }
+      ]
+    }
+  ]
 }

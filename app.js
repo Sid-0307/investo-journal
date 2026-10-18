@@ -67,51 +67,63 @@ function renderReview(review, latestReport) {
   document.querySelector('#review-sources').innerHTML = (review.sources || []).map(sourceLink).join('');
 }
 
+function renderCandidates(review) {
+  const list = document.querySelector('#next-candidates');
+  const items = review.nextCandidates || [];
+  put('#watchlist-asof', 'Research checked ' + dateLabel(review.watchlistAsOf || review.reviewedAt?.slice(0, 10)));
+  list.innerHTML = items.length ? items.map((item, index) =>
+    '<article class="candidate-card candidate-' + esc(item.stageKey || 'watch') + '">' +
+      '<div class="candidate-card-top"><span class="candidate-step">0' + (index + 1) + ' · RESEARCH QUEUE</span><span class="candidate-stage">' + esc(item.stage || 'Watch') + '</span></div>' +
+      '<h3>' + esc(item.name) + '</h3><p class="candidate-ticker">NSE ' + esc(item.nse || '—') + ' <span>·</span> BSE ' + esc(item.bse || '—') + '</p>' +
+      '<div class="candidate-evidence"><strong>Latest evidence</strong><p>' + esc(item.evidence) + '</p></div>' +
+      '<p class="candidate-thesis">' + esc(item.thesis) + '</p>' +
+      '<div class="candidate-check"><strong>Next checkpoint</strong><p>' + esc(item.nextCheck) + '</p></div>' +
+      '<div class="candidate-risk"><strong>Risk to watch</strong><p>' + esc(item.risk) + '</p></div>' +
+      '<div class="source-row">' + (item.sources || []).map(sourceLink).join('') + '</div>' +
+    '</article>'
+  ).join('') : '<div class="watchlist-empty">No current source-backed stock candidates are saved.</div>';
+}
+
 function renderPortfolio(plan) {
   const positions = plan.positions || [];
-  const total = positions.reduce((sum, item) => sum + (Number(item.costCents) || 0), 0);
+  const legacyCostTotal = positions.reduce((sum, item) => sum + (Number(item.costCents) || 0), 0);
+  const total = Number.isInteger(plan.ownerConfirmedInvestedCents) ? plan.ownerConfirmedInvestedCents : legacyCostTotal;
   const allocation = Number(plan.currentTranche?.allocationCents || plan.monthlyTrancheCents || 0);
   const remainder = Math.max(0, allocation - total);
   const percent = allocation ? Math.min(100, total / allocation * 100) : 0;
   put('#october-deployed', money(total));
   put('#october-percent', percent.toFixed(1) + '% deployed');
   put('#october-remaining', money(remainder));
-  put('#position-count', NUMBER.format(positions.length));
-  document.querySelector('#october-progress').style.width = percent + '%';
+  put('#position-count', NUMBER.format(plan.ownerConfirmedPositionCount || positions.length));
   put('#portfolio-total', money(total));
-  const segments = [];
-  let accumulated = 0;
-  positions.forEach((item, i) => {
-    const start = accumulated / (total || 1) * 100;
-    accumulated += Number(item.costCents) || 0;
-    const end = accumulated / (total || 1) * 100;
-    segments.push(colors[i % colors.length] + ' ' + start.toFixed(2) + '% ' + end.toFixed(2) + '%');
-  });
-  document.querySelector('#allocation-donut').style.background = segments.length ? 'conic-gradient(' + segments.join(',') + ')' : 'conic-gradient(#e4e9e5 0% 100%)';
-  document.querySelector('#allocation-legend').innerHTML = positions.map((item, i) => {
-    const share = total ? Number(item.costCents) / total * 100 : 0;
-    return '<div class="legend-row"><span class="legend-name"><i style="background:' + colors[i % colors.length] + '"></i><strong>' + esc(item.symbol) + '</strong><small>' + esc(item.name) + '</small></span><span class="legend-value">' + share.toFixed(1) + '%<small>' + money(item.costCents) + '</small></span></div>';
-  }).join('');
+  put('#allocation-percent', percent.toFixed(1) + '% of October');
+  put('#allocation-remaining', money(remainder) + ' remains before fees');
+  document.querySelector('#october-progress').style.width = percent + '%';
+  const ring = document.querySelector('#allocation-donut');
+  ring.style.background = 'conic-gradient(#5c9c48 0% ' + percent + '%, #e4e9e5 ' + percent + '% 100%)';
+  ring.setAttribute('aria-label', 'October tranche ' + percent.toFixed(1) + '% deployed');
+  const types = { NIFTYBEES:'Broad-market ETF', HDFCBANK:'Private bank', GOLDBEES:'Gold ETF', SOUTHBANK:'Bank', POONAWALLA:'NBFC' };
   document.querySelector('#holdings-body').innerHTML = positions.map(item =>
-    '<tr><td><strong>' + esc(item.symbol) + '</strong><span>' + esc(item.name) + '</span></td><td>' + NUMBER.format(item.quantity) + '</td><td>' + money(item.averagePricePaise) + '</td><td><strong>' + money(item.costCents) + '</strong></td><td><span class="verification ' + (item.verification === 'SCREENSHOT_MATCHED' ? 'verification-match' : 'verification-reported') + '">' + (item.verification === 'SCREENSHOT_MATCHED' ? 'Screenshot matched' : 'User-reported') + '</span></td></tr>'
+    '<tr><td><strong>' + esc(item.symbol) + '</strong><span>' + esc(item.name) + '</span></td><td>' + NUMBER.format(item.quantity) + '</td><td>' + esc(types[item.symbol] || 'Equity') + '</td><td><span class="verification ' + (item.verification === 'SCREENSHOT_MATCHED' ? 'verification-match' : 'verification-reported') + '">' + (item.verification === 'SCREENSHOT_MATCHED' ? 'Screenshot matched' : 'User-reported') + '</span></td></tr>'
   ).join('');
   const bar = document.querySelector('#october-progress');
   bar.setAttribute('aria-valuenow', percent.toFixed(1));
-  document.querySelector('#footer-status').textContent = 'Portfolio amounts are user-reported · live value and P&L unavailable';
+  document.querySelector('#footer-status').textContent = '₹' + NUMBER.format(total / 100) + ' invested · owner-confirmed ' + dateLabel(plan.ownerConfirmedAsOf) + ' · no live value or P&L shown';
 }
 
 function renderPlan(plan) {
   const capital = Number(plan.capitalCents) || 0;
   const monthly = Number(plan.currentTranche?.allocationCents || plan.monthlyTrancheCents) || 0;
-  const positionsTotal = (plan.positions || []).reduce((sum, item) => sum + (Number(item.costCents) || 0), 0);
-  const remaining = Math.max(0, monthly - positionsTotal);
+  const legacyCostTotal = (plan.positions || []).reduce((sum, item) => sum + (Number(item.costCents) || 0), 0);
+  const invested = Number.isInteger(plan.ownerConfirmedInvestedCents) ? plan.ownerConfirmedInvestedCents : legacyCostTotal;
+  const remaining = Math.max(0, monthly - invested);
   const future = Math.max(0, capital - monthly);
-  const percent = monthly ? Math.min(100, positionsTotal / monthly * 100) : 0;
+  const percent = monthly ? Math.min(100, invested / monthly * 100) : 0;
   put('#plan-total', money(capital));
   put('#plan-monthly', money(monthly));
-  put('#plan-invested', money(positionsTotal));
+  put('#plan-invested', money(invested));
   put('#plan-remaining', money(remaining));
-  put('#tranche-percent', percent.toFixed(1) + '% reported deployed');
+  put('#tranche-percent', percent.toFixed(1) + '% deployed');
   put('#future-capital', money(future));
   document.querySelector('#plan-track-fill').style.width = percent + '%';
   const months = plan.months || [];
@@ -159,7 +171,7 @@ function renderCoverage(review, reports) {
   }).join('');
   const total = dates.length * 2;
   put('#coverage-sourced', sourced + ' / ' + total);
-  put('#coverage-unavailable', unavailable + ' slots recorded as provider-unavailable');
+  put('#coverage-unavailable', unavailable + ' slots recorded with no sourced analysis');
   put('#coverage-missing', missing + ' slots have no entry');
   put('#coverage-corrections', corrections.length + ' published correction/supplement notes');
   document.querySelector('#coverage-grid').innerHTML = rows;
@@ -210,11 +222,17 @@ async function loadJournal() {
     ]);
     const latest = [...reports].sort((a,b) => String(b.generatedAt).localeCompare(String(a.generatedAt)))[0];
     renderReview(review, latest);
+    renderCandidates(review);
     renderPortfolio(plan);
     renderPlan(plan);
     renderCoverage(review, reports);
     renderArchive(reports, audits);
-    status.textContent = latest ? 'Saved journal · latest scheduled entry ' + dateLabel(latest.date) : 'Saved journal · no daily entries yet';
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Kolkata', year:'numeric', month:'2-digit', day:'2-digit' }).format(new Date());
+    const weekday = new Intl.DateTimeFormat('en-IN', { timeZone:'Asia/Kolkata', weekday:'short' }).format(new Date());
+    const todaySlots = reports.filter(item => item.date === today && ['opening', 'closing'].includes(item.type)).length;
+    const todayState = todaySlots >= 2 ? '2/2 updates saved' : todaySlots === 1 ? '1/2 updates saved' : ['Sat', 'Sun'].includes(weekday) ? 'market closed' : 'no update saved';
+    status.textContent = 'Today ' + shortDate(today) + ' · ' + todayState;
+    status.title = 'Latest archive entry: ' + (latest ? dateLabel(latest.date) : 'none') + ' · market analysis through ' + dateLabel(review.dataThrough);
     document.querySelector('#refresh-button').setAttribute('aria-label', 'Refresh saved journal data');
   } catch (error) {
     status.textContent = 'Journal data could not be loaded';

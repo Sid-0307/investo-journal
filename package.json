@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24" },
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "build": "node scripts/build.js",
-    "refresh": "node scripts/refresh.js",
     "audit": "node scripts/audit.js",
     "correction": "node scripts/append-correction.js",
     "test": "node --test"
